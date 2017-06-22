@@ -1,0 +1,112 @@
+<!-- 
+1) 基本（不啟用 ajax-edit） 的使用方式：
+  1-1)
+    trigger 給定 data: { toggle: "modal", target: "#actionModelName" }
+  1-2)
+    <%#= render "common/modal", modal_id: "actionModelName" %>
+    或
+    <%#= render "common/modal", modal_id: "actionModelName" do %>
+      block: will be yield in $(".modal-body")
+    <%# end %>
+
+2) 要啟用 ajax-edit 的使用方式：
+  2-1)
+    <html_tag class="ajax-trigger-container">
+      <html_tag class="ajax-trigger" <%#= ajax_edit(obj) %>></html_tag>
+    </html_tag>
+  2-2)
+    <%#= render "common/modal", model_name: "Employee", remote: true %>
+  2-3)
+    此外，controller#edit 跟 #update 也要設定好
+  補充：如果啟用 ajax-edit 時給予 block 的話，會被 ajax-trigger 的 data-url get 取代掉
+
+補充：
+  通用設定：
+    title: modal 的 title
+    btn: 主要按鈕的文字，可設定為 false 取消按鈕
+    remote: 是否要 ajax 送出, 預設 false
+  預設條件：
+    modal 的 id = editModelName
+-->
+
+<% model_name ||= "" %> <!-- 沒給 model_name 的話表示不啟用 ajax-edit，所以設成空白 -->
+<% if model_name.present? %> <!-- 承上，有啟用 ajax-edit 的話就將 modal_id 預設成 editModelName -->
+  <% modal_id ||= "edit#{model_name.capitalize}" %>
+<% end %>
+<% title ||= "編輯資料" %>
+<% btn ||= "儲存" unless !!btn == btn %> <!-- 如果 btn: false 的話，表示不需要按鈕，可能是把 modal 當成 info 用 -->
+<% remote ||= false %> <!-- 設成 false 把 ajax-edit 關閉 -->
+
+<div class="modal fade" id="<%= modal_id %>">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><%= title %></h4>
+      </div>
+      <div class="modal-body">
+        <%= yield %>
+      </div>
+      <% if btn.present? %>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= close ||= "關閉" %></button>
+          <button type="button" class="btn btn-primary submit-btn"><%= btn ||= "儲存" %></button>
+        </div>
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+  <% if remote %>
+    $(".ajax-trigger-container").on("click", ".clickable.ajax-trigger", function(){
+      $model = $(this)
+      $.ajax({
+        url: $model.data("url"),
+        method: "get",
+      }).done(function(data, status, xhr) {
+        // alert("OK")
+        window.data = data
+        window.status = status
+        window.xhr = xhr
+        $('<%= "##{modal_id}" %> .modal-body').html(data)
+        $form = $('<%= "##{modal_id}" %>').find("form")
+        $form.append('<input type="hidden" name="model_id" id="model_id" value="' + $model.data('model-id') + '">')
+      })
+    })
+  <% end %>
+
+  $btn = $('<%= "##{modal_id}" %>').find("button.submit-btn")
+  $btn.on("click", function(e){
+    if ($('<%= "##{modal_id}" %>').find("form").length > 0) {
+      <% if remote %>
+        // 啟用 ajax-edit 的話，會把目前 modal 內的 form 送出
+        // 然後接收回傳的資料 (須 render 該物件的 partial html)
+        // 並根據 ajax-trigger 的 data-model-id 替換掉
+        e.preventDefault()
+        $form = $('<%= "##{modal_id}" %>').find("form")
+        $.ajax({
+          url: $form.attr("action"),
+          method: $form.attr("method"),
+          data: $form.serialize() + "&_method=patch"
+        }).done(function(data, status, xhr){
+          // 這邊必須要有 model_id 這個隱藏欄位，才能知道更新了誰的資料
+          // 其實也可以讓伺服器回傳該物件的 id，但這樣的話就要在 controller 寫，code 會更分散
+          id = $form.find("#model_id").val()
+          $("[data-model-id=" + id + "]").replaceWith(data)
+          $('<%= "##{modal_id}" %>').modal("hide")
+        }).fail(function(xhr, status, errors){
+          for (error in xhr.responseJSON) {
+            $form.prepend("<div class='alert alert-danger'>" + error + xhr.responseJSON[error] + "</div>")
+          }
+        })
+      <% else %>
+        // ajax-edit 關閉的話，將把 modal 內的 form submit
+        // 找不到 form 的話也就不會 submit
+        $('<%= "##{modal_id}" %>').find("form").submit()
+      <% end %>
+    }
+  })
+</script>

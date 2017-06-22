@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>三角洲財產管理系統</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield :custom_head %>
+  </head>
+
+  <body class='<%= "#{controller_name} #{action_name}" %>'>
+    <div class="container mb-2">
+      <%= render "common/nav2" %>
+      <%= notice_message %>
+      <%= yield %>
+    </div>
+    <%= yield :custom_js %>
+  </body>
+</html>

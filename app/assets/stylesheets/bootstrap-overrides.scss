@@ -1,0 +1,25 @@
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+$levels: 5;
+@mixin spacing-list {
+  @for $i from 1 through $levels {
+    .mr-#{$i} { margin-right: calc( 5px * #{$i} ); }
+    .ml-#{$i} { margin-left: calc( 5px * #{$i} ); }
+    .mt-#{$i} { margin-top: calc( 5px * #{$i} ); }
+    .mb-#{$i} { margin-bottom: calc( 5px * #{$i} ); }
+    .mx-#{$i} { margin-right: calc( 5px * #{$i} ); margin-left: calc( 5px * #{$i} ); }
+    .my-#{$i} { margin-top: calc( 5px * #{$i} ); margin-bottom: calc( 5px * #{$i} ); }
+    .m-#{$i} { margin: calc( 5px * #{$i} ); }
+    .pr-#{$i} { padding-right: calc( 5px * #{$i} ); }
+    .pl-#{$i} { padding-left: calc( 5px * #{$i} ); }
+    .pt-#{$i} { padding-top: calc( 5px * #{$i} ); }
+    .pb-#{$i} { padding-bottom: calc( 5px * #{$i} ); }
+    .px-#{$i} { padding-right: calc( 5px * #{$i} ); padding-left: calc( 5px * #{$i} ); }
+    .py-#{$i} { padding-top: calc( 5px * #{$i} ); padding-bottom: calc( 5px * #{$i} ); }
+    .p-#{$i} { padding: calc( 5px * #{$i} ); }
+  }
+}
+@include spacing-list;
