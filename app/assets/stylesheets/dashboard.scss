@@ -1,19 +1,14 @@
+@import "variables";
 .docks {
-  width: 100%;
-  display: flex;
-  padding-top: 20px;
-}
-.dock {
-  margin: 0px 10px;
-  &:first-child {
-    margin-left: 0px; 
-  }
-  &:last-child {
-    margin-right: 0px; 
-  }
-  .dock-title {
-    color: white;
-    font-weight: bold;
-    letter-spacing: 2px;
+  a.dock {
+    text-decoration: none;
+    &:hover, &:focus {
+      & > .panel-default {
+        border-color: $brand-primary;
+      }
+      i.fa {
+        color: #006ad1 !important;
+      }
+    }
   }
 }

@@ -5,8 +5,10 @@ document.addEventListener("turbolinks:load", function(){
   $(".qr-code").each(function(){
     $(this).qrcode($(this).data("qr-code-content"))
   })
-  $(".select2").select2({
-  	theme: "bootstrap"
-  })
-  // svg4everybody();
+  $("select.select2").removeClass("select2-hidden-accessible")
+	$("span.select2-container").remove()
+	$( ".select2" ).select2({
+	  theme: "bootstrap",
+	  language: "zh-CN"
+	});
 })

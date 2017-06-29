@@ -1,3 +1,3 @@
-<h1 class="page-header mt-1 mb-2">財產總覽</h1>
-<h2 class="mb-2">歸屬部門：<%= @department.name %></h2>
+<h1 class="page-header">財產總覽</h1>
+<h3 class="mb-2">歸屬部門：<%= @department.name %></h3>
 <%= render partial: "items/item", collection: @department_items, as: :item %>

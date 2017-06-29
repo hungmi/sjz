@@ -1,78 +1,76 @@
 <%= form_for(@item, html: { class: "col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8" }) do |f| %>
   <%= form_errors(@item) %>
-  <div class="col-md-6">
-    <% if @item.image.present? %>
-      <%= image_tag f.object.image, class: "img-responsive mb-2" %>
-      <div class="alert alert-info" role="alert">
-        <strong>溫馨提示：</strong> 上傳新圖片將會覆蓋原有圖片。
-      </div>
-    <% end %>
-  </div>
-  <div class="col-md-6">
-    <img id="target" class="img-responsive mb-2"/>
-    <div class="form-group row">
-      <%= f.label :image, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-8">
-        <%= f.file_field :image, class: "form-control-file" %>
-      </div>
+  <div class="row">
+    <div class="col-md-6">
+      <img id="target" class="img-responsive mb-2"/>
+      <% if @item.image.present? %>
+        <%= image_tag f.object.image, class: "img-responsive mb-2" %>
+        <div class="alert alert-info" role="alert">
+          <strong>溫馨提示：</strong> 上傳新圖片將會覆蓋原有圖片。
+        </div>
+      <% end %>
     </div>
-    <div class="form-group row">
-      <%= f.label :department_id, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-8">
-        <% if @departments.present? %>
-          <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control select2" %>
-        <% else %>
-          <div style="padding: 9px 3px;">
-            尚未建立任何部門
-            <%= link_to "前往建立", new_department_path %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="form-group row">
-      <%= f.label :employee_id, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-8">
-        <%= f.select :employee_id, grouped_options_for_select(company_people_options, @item.employee_id), {}, class: "form-control select2" %>
-      </div>
-    </div>
-    <% if @item.persisted? %>
+    <div class="col-md-6">
       <div class="form-group row">
-        <%= f.label :id, class: "col-xs-4 col-form-label" %>
+        <%= f.label :image, class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">
-          <p class="form-control-static mb-0"><%= @item.code %></p>
+          <%= f.file_field :image, class: "form-control-file" %>
         </div>
       </div>
-    <% end %>
-    <div class="form-group row">
-      <%= f.label :name, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-8">
-        <%= f.text_field :name, class: "form-control" %>
+      <div class="form-group row">
+        <%= f.label :department_id, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <% if @departments.present? %>
+            <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control select2" %>
+          <% else %>
+            <div style="padding: 9px 3px;">
+              尚未建立任何部門
+              <%= link_to "前往建立", new_department_path %>
+            </div>
+          <% end %>
+        </div>
       </div>
+      <div class="form-group row">
+        <%= f.label :employee_id, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <%= f.select :employee_id, grouped_options_for_select(company_people_options, @item.employee_id), {}, class: "form-control select2" %>
+        </div>
+      </div>
+      <% if @item.persisted? %>
+        <div class="form-group row">
+          <%= f.label :id, class: "col-xs-4 col-form-label" %>
+          <div class="col-xs-8">
+            <p class="form-control-static mb-0"><%= @item.code %></p>
+          </div>
+        </div>
+      <% end %>
+      <div class="form-group row">
+        <%= f.label :name, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :quantity, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-4">
+          <%= f.text_field :quantity, class: "form-control" %>
+        </div>
+        <div class="col-xs-4">
+          <%= f.text_field :unit, value: "個", class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :spec, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <%= f.text_area :spec, class: "form-control" %>
+        </div>
+      </div>
+      
+      <%= f.submit class: "btn btn-primary btn-block" %>
     </div>
-    <div class="form-group row">
-      <%= f.label :quantity, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-4">
-        <%= f.text_field :quantity, class: "form-control" %>
-      </div>
-      <div class="col-xs-4">
-        <%= f.text_field :unit, value: "個", class: "form-control" %>
-      </div>
-    </div>
-    <div class="form-group row">
-      <%= f.label :spec, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-8">
-        <%= f.text_area :spec, class: "form-control" %>
-      </div>
-    </div>
-    
-    <%= f.submit class: "btn btn-primary btn-block" %>
   </div>
 <% end %>
 <script type="text/javascript">
-  $(document).on("turbolinks:before-cache", function() {
-    $(".select2-hidden-accessible").removeClass("select2-hidden-accessible")
-    $(".select2-container").remove()
-  })
   function showImage(src,target) {
     var fr=new FileReader();
     // when image is loaded, set the src of the image where you want to display it

@@ -11,8 +11,8 @@
   </head>
 
   <body class='<%= "#{controller_name} #{action_name}" %>'>
+    <%= render "common/nav3" %>
     <div class="container mb-2">
-      <%= render "common/nav2" %>
       <%= notice_message %>
       <%= yield %>
     </div>
