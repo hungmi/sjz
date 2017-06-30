@@ -2,7 +2,7 @@ default: &default
   timeout: 5000
   adapter: postgresql
   encoding: utf8
-  pool: <%= ENV.fetch(“RAILS_MAX_THREADS”) { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 development:
   <<: *default
   database: sjz_development
@@ -11,6 +11,6 @@ test:
   database: sjz_test
 production:
   <<: *default
-  database: <%= ENV[‘PG_DBNAME’] %>
-  username: <%= ENV[‘PG_USERNAME’] %>
-  password: <%= ENV[‘PG_PASSWORD’] %>
+  database: <%= ENV['PG_DBNAME'] %>
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>

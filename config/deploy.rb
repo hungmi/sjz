@@ -1,4 +1,4 @@
-lock '3.8.1'
+lock '3.8.2'
 
 set :application, 'sjz'
 set :repo_url, 'git@github.com:hungmi/sjz.git' # Edit this to match your repository
