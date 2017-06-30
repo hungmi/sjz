@@ -2,21 +2,15 @@ default: &default
   timeout: 5000
   adapter: postgresql
   encoding: utf8
-  database: sjz_assets_management_dev
-  pool: 5
-
+  pool: <%= ENV.fetch(“RAILS_MAX_THREADS”) { 5 } %>
 development:
   <<: *default
-
+  database: sjz_development
 test:
   <<: *default
-  database: sjz_assets_management_test
-
+  database: sjz_test
 production:
   <<: *default
-  database: sjz_assets_management_production
-  username: railsapp
-  password: railsonproduction
-  host: localhost
-  port: 5432
-  pool: 15
+  database: <%= ENV[‘PG_DBNAME’] %>
+  username: <%= ENV[‘PG_USERNAME’] %>
+  password: <%= ENV[‘PG_PASSWORD’] %>
