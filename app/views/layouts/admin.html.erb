@@ -10,7 +10,7 @@
     <%= yield :custom_head %>
   </head>
 
-  <body class='<%= "#{controller_name} #{action_name}" %>'>
+  <body class='admin <%= "#{controller_name} #{action_name}" %>'>
     <%= render "admin/common/nav" %>
     <div class="container mb-2">
       <%= notice_message %>

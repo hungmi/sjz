@@ -1,5 +1,5 @@
 @import "admin/variables";
-body, .admin {
+.admin {
   nav.navbar-primary {
     margin-bottom: 0px;
     background-color: $navbar-primary-bg;
@@ -19,7 +19,7 @@ body, .admin {
     }
 
     .navbar-collapse {
-      @media only screen and (max-width: $grid-float-breakpoint) {
+      @media only screen and (max-width: $grid-float-breakpoint - 1) {
       // 行動版
         li.dropdown {
           & > .dropdown-toggle,
@@ -31,31 +31,31 @@ body, .admin {
               color: $navbar-primary-color;
             }
           }
-          @media only screen and (max-width: 768px) {
-            & > ul.dropdown-menu a {
-              padding-left: 35px;
-            }
+          & > ul.dropdown-menu a {
+            padding-left: 35px;
           }
         }
       }
-      // 桌面版
-      li.dropdown {
-        & > .dropdown-toggle,
-        & > ul.dropdown-menu a {
-          padding: 15px;
-          &:hover, &:focus {
-            background-color: $semi-navbar-primary-bg !important;
+      @media only screen and (min-width: $grid-float-breakpoint) {
+        // 桌面版
+        li.dropdown {
+          & > .dropdown-toggle,
+          & > ul.dropdown-menu a {
+            padding: 15px;
+            &:hover, &:focus {
+              background-color: $semi-navbar-primary-bg !important;
+              color: $navbar-primary-color;
+            }
+          }
+          & > .dropdown-toggle {
             color: $navbar-primary-color;
           }
-        }
-        & > .dropdown-toggle {
-          color: $navbar-primary-color;
-        }
-        &.open > .dropdown-toggle {
-          background-color: $semi-navbar-primary-bg !important;
-        }
-        & > ul.dropdown-menu a {
-          color: $navbar-primary-bg;
+          &.open > .dropdown-toggle {
+            background-color: $semi-navbar-primary-bg !important;
+          }
+          & > ul.dropdown-menu a {
+            color: $navbar-primary-bg;
+          }
         }
       }
       // 共用
@@ -65,7 +65,7 @@ body, .admin {
     }
 
     li.dropdown-search-wrapper {
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: $grid-float-breakpoint) {
         width: 500px;
       }
       div.form-group {
