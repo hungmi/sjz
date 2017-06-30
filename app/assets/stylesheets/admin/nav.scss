@@ -10,9 +10,16 @@ body, .admin {
       letter-spacing: 1px;
       color: $navbar-primary-color;
     }
-    
-    .collapse {
-      &.in {
+
+    .navbar-toggle {
+      border-color: #eee;
+      & .icon-bar {
+        background-color: #ddd;
+      } 
+    }
+
+    .navbar-collapse {
+      @media only screen and (max-width: $grid-float-breakpoint) {
       // 行動版
         li.dropdown {
           & > .dropdown-toggle,
