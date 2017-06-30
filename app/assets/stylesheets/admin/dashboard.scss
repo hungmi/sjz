@@ -1,0 +1,14 @@
+@import "admin/variables";
+.docks {
+  a.dock {
+    text-decoration: none;
+    &:hover, &:focus {
+      & > .panel-default {
+        border-color: $brand-primary;
+      }
+      i.fa {
+        color: #006ad1 !important;
+      }
+    }
+  }
+}

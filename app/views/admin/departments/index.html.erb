@@ -1,0 +1,29 @@
+<h1 class="page-header">
+  部門總覽
+  <%= link_to admin_employees_path, class: "btn btn-link pb-0" do %>
+    <i class="fa fa-users"></i>
+    人員管理
+  <% end %>
+  <%= link_to new_admin_department_path, class: "btn btn-primary pull-right icon-btn" do %>
+    <i class="fa fa-plus"></i>
+    建立新部門
+  <% end %>
+  <%= link_to admin_departments_path(format: :xls), class: "btn btn-success pull-right mr-1" do %>
+    <i class="fa fa-arrow-circle-down"></i>
+    導出 CSV
+  <% end %>
+</h1>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <th style="min-width: 120px;">名稱</th>
+      <th style="min-width: 110px;">顯示順序</th>
+    </thead>
+    <tbody class="ajax-trigger-container">
+      <%= render @departments %>
+    </tbody>
+  </table>
+</div>
+
+<%= render "admin/common/modal", model_name: "Department", remote: true %>

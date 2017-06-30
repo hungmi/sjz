@@ -68,6 +68,7 @@ gem 'whenever', :require => false
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'ransack'
+gem 'spreadsheet'
 
 group :development, :test do
   gem 'pry-byebug'

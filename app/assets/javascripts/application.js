@@ -16,6 +16,4 @@
 //= require jquery.qrcode.min
 //= require select2
 //= require select2_locale_zh-CN
-//= require nav
-//= require app_init
 //= require turbolinks

@@ -1,0 +1,34 @@
+<h1 class="page-header">
+  人員總覽
+  <%= link_to admin_departments_path, class: "btn btn-link pb-0" do %>
+    <i class="fa fa-users"></i>
+    部門管理
+  <% end %>
+  <%= link_to new_admin_employee_path, class: "btn btn-primary pull-right" do %>
+    <i class="fa fa-plus"></i>
+    登錄人事資料
+  <% end %>
+  <%= link_to admin_employees_path(format: :xls), class: "btn btn-success pull-right mr-1" do %>
+    <i class="fa fa-arrow-circle-down"></i>
+    導出 CSV
+  <% end %>
+</h1>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <th style="min-width: 120px;">部門</th>
+      <th style="min-width: 110px;">職務</th>
+      <th style="min-width: 100px;">姓名</th>
+      <th>手機</th>
+      <th>座機</th>
+      <th>分機</th>
+      <th></th>
+    </thead>
+    <tbody class="ajax-trigger-container">
+      <%= render @employees %>
+    </tbody>
+  </table>
+</div>
+
+<%= render "admin/common/modal", model_name: "Employee", remote: true %>

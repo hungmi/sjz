@@ -1,0 +1,9 @@
+//= require rails-ujs
+//= require jquery
+//= require bootstrap-sprockets
+//= require jquery.qrcode.min
+//= require select2
+//= require select2_locale_zh-CN
+//= require admin/nav
+//= require admin/app_init
+//= require turbolinks

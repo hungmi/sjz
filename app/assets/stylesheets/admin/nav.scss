@@ -1,0 +1,82 @@
+@import "admin/variables";
+body, .admin {
+  nav.navbar-primary {
+    margin-bottom: 0px;
+    background-color: $navbar-primary-bg;
+    border: none;
+    border-radius: 0px;
+    .navbar-brand {
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: $navbar-primary-color;
+    }
+    
+    .collapse {
+      &.in {
+      // 行動版
+        li.dropdown {
+          & > .dropdown-toggle,
+          & > ul.dropdown-menu a {
+            color: $navbar-primary-color;
+            padding: 15px;
+            &:hover, &:focus {
+              background-color: $semi-navbar-primary-bg !important;
+              color: $navbar-primary-color;
+            }
+          }
+          @media only screen and (max-width: 768px) {
+            & > ul.dropdown-menu a {
+              padding-left: 35px;
+            }
+          }
+        }
+      }
+      // 桌面版
+      li.dropdown {
+        & > .dropdown-toggle,
+        & > ul.dropdown-menu a {
+          padding: 15px;
+          &:hover, &:focus {
+            background-color: $semi-navbar-primary-bg !important;
+            color: $navbar-primary-color;
+          }
+        }
+        & > .dropdown-toggle {
+          color: $navbar-primary-color;
+        }
+        &.open > .dropdown-toggle {
+          background-color: $semi-navbar-primary-bg !important;
+        }
+        & > ul.dropdown-menu a {
+          color: $navbar-primary-bg;
+        }
+      }
+      // 共用
+      ul.dropdown-menu {
+        min-width: 130px;
+      }
+    }
+
+    li.dropdown-search-wrapper {
+      @media only screen and (min-width: 768px) {
+        width: 500px;
+      }
+      div.form-group {
+        display: inline-block;
+        width: calc(100% - 61px);
+      }
+      input {
+        width: 100%;
+      }
+      button.btn-primary {
+        border-color: white;
+      }
+    }
+    input {
+      border-radius: 0px;
+    }
+    .btn {
+      border-width: 2px !important;
+    }
+  }
+}

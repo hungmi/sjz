@@ -1,0 +1,17 @@
+<h1 class="page-header">
+  登錄人事資料
+  <%= link_to upload_admin_employees_path, class: "btn btn-primary pull-right", data: { toggle: "modal", target: "#uploadEmployees" } do %>
+    <i class="fa fa-plus"></i>
+    上傳人事資料
+  <% end %>
+</h1>
+
+<%= render layout: "admin/common/modal", locals: { modal_id: "uploadEmployees", title: "請選擇人事表", btn: "開始上傳" } do %>
+  <% form_tag upload_admin_employees_path, multipart: true do %>
+    <% file_field_tag :employee_file %>
+  <% end %>
+<% end %>
+
+<div class="mx-auto">
+  <%= render "form", employee: @employee %>
+</div>

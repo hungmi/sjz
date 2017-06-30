@@ -1,0 +1,43 @@
+<h1 class="page-header">歡迎使用三角洲集團內部系統</h1>
+<h3>財務部</h3>
+<div class="row mt-5 docks">
+  <%= link_to root_path, class: "col-xs-12 col-sm-4 col-md-3 dock" do %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <i class="fa fa-files-o"></i>
+        送貨單轉換
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<h3>銷售部</h3>
+<div class="row mt-5 docks">
+  <%= link_to root_path, class: "col-xs-12 col-sm-4 col-md-3 dock" do %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <i class="fa fa-address-card-o"></i>
+        客戶總覽
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<h3>行政部</h3>
+<div class="row mt-5 docks">
+  <%= link_to admin_items_path, class: "col-xs-12 col-sm-4 col-md-3 dock" do %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        財產管理
+      </div>
+    </div>
+  <% end %>
+  <%= link_to admin_employees_path, class: "col-xs-12 col-sm-4 col-md-3 dock" do %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <i class="fa fa-users"></i>
+        通訊錄
+      </div>
+    </div>
+  <% end %>
+</div>

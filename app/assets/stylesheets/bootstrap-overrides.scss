@@ -1,4 +1,4 @@
-@import "variables";
+@import "admin/variables";
 
 .mx-auto {
   margin-right: auto;
@@ -45,8 +45,4 @@ $levels: 5;
   .dropdown-menu {
     min-width: 7rem;
   }
-}
-
-i.fa {
-  color: lighten($brand-primary, 10%);
 }

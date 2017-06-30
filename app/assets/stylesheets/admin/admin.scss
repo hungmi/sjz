@@ -1,3 +1,4 @@
+@import "admin/variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
@@ -5,3 +6,6 @@
 @import "select2-bootstrap";
 @import "bootstrap-overrides";
 @import "main";
+@import "admin/nav";
+@import "admin/items";
+@import "admin/dashboard";

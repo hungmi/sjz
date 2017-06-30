@@ -1,0 +1,18 @@
+<%= form_for([:admin, department], html: { class: ("col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" if action_name == "new") }) do |f| %>
+  <%= form_errors(department) %>
+  <div class="form-group row">
+    <%= f.label :name, class: "col-xs-4 col-form-label" %>
+    <div class="col-xs-8">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :ordering, class: "col-xs-4 col-form-label" %>
+    <div class="col-xs-8">
+      <%= f.text_field :ordering, class: "form-control" %>
+    </div>
+  </div>
+  <% if action_name == "new" %>
+    <%= f.submit class: "btn btn-primary btn-block" %>
+  <% end %>
+<% end %>

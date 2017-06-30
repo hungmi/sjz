@@ -7,10 +7,14 @@ module ApplicationHelper
     end
   end
 
-  def ajax_edit(obj)
+  def ajax_edit(namespace = nil, obj)
     "data-toggle=modal" +
     " data-target=#edit#{obj.class.model_name}" +
     " data-model-id=#{obj.id}" +
-    " data-url=#{send("edit_#{obj.class.model_name.singular}_path", obj)}".html_safe
+    if namespace
+      " data-url=#{send("edit_#{namespace}_#{obj.class.model_name.singular}_path", obj)}".html_safe
+    else
+      " data-url=#{send("edit_#{obj.class.model_name.singular}_path", obj)}".html_safe
+    end
   end
 end
