@@ -1,0 +1,31 @@
+@import "admin/variables";
+
+.admin.tickets.uploading {
+	@media only screen and (min-width: $grid-float-breakpoint) {
+		.panel-body {
+			padding: 15px 200px;
+		}
+	}
+	.panel-title a:not(.btn) {
+		color: $brand-primary;
+	}
+	.panel-title.text-center {
+		position: relative;
+		.abs-right {
+			position: absolute;
+			right: 0px;
+		}
+		.abs-left {
+			position: absolute;
+			left: 0px;
+		}
+	}
+	#uploadArea {
+		cursor: pointer;
+		&:hover, &:focus {
+			i.fa {
+				color: $brand-primary;
+			}
+		}
+	}
+}

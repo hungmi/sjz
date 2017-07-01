@@ -8,6 +8,7 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
+gem "rb-fsevent", "0.9.8"
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use sqlite3 as the database for Active Record
@@ -68,7 +69,7 @@ gem 'whenever', :require => false
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'ransack'
-gem 'spreadsheet'
+gem 'axlsx', '~>  2.0.0'
 
 group :development, :test do
   gem 'pry-byebug'

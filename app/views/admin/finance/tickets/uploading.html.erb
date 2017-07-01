@@ -1,0 +1,45 @@
+<h1 class="page-header">
+  送貨單轉換	
+</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title text-center">
+      <%= link_to root_path, class: "btn btn-default btn-xs abs-left" do %>
+        <i class="fa fa-angle-double-left"></i> 返回
+      <% end %>
+    	<i class="glyphicon glyphicon-upload"></i>
+			上傳發票 xml 檔
+      <a class="abs-right" href="#">如何取得發票 xml 檔？</a>
+    </h3>
+  </div>
+  <div class="panel-body text-center">
+    <%= form_with url: admin_finance_tickets_transform_path, multipart: true, id: "tickets_xml_file_form", data: { remote: false } do %>
+      <div class="form-group">
+        <%= file_field_tag :tickets_xml_file, class: "hidden", accept: ".xml" %>
+        <div class="well" style="background-color: transparent; box-shadow: none; border: none;" id="uploadArea">
+          <i class="fa fa-cloud-upload" style="font-size: 60px;""></i>
+        </div>
+        <span id="fileName"></span>
+      </div>
+      <div class="form-group">
+        <%= button_tag class: "btn btn-primary hidden", id: "upload-btn" do %>
+          <i class="fa fa-cloud-download"></i>
+          轉換並下載
+        <% end %>
+      </div>
+		<% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#uploadArea").on("click", function() {
+    $("input#tickets_xml_file").click()
+  })
+  $("input#tickets_xml_file").change(function() {
+    if ($('input#tickets_xml_file').val()) {
+      $('#upload-btn').removeClass("hidden")
+      $("#fileName").html($('input#tickets_xml_file')[0].files[0].name)
+    }
+  });
+</script>

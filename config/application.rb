@@ -16,5 +16,7 @@ module Sjz
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = "zh-CN"
     config.time_zone = "Beijing"
+
+		config.autoload_paths << "#{Rails.root}/app/services"
   end
 end

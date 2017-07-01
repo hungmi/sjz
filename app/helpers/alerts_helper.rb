@@ -10,7 +10,7 @@ module AlertsHelper
 
   def alert_div(message, type="info")
     return capture do
-      content_tag :div, class: "alert alert-#{type} mt-1 mb-1" do
+      content_tag :div, class: "alert alert-#{type} mt-4" do
         message
       end
     end

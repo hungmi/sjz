@@ -17,5 +17,11 @@ Rails.application.routes.draw do
       end
     end
     resources :departments  
+    namespace :finance do
+      namespace :tickets do
+        get "uploading"
+        post "transform"
+      end
+    end
   end
 end
