@@ -23,7 +23,7 @@
         <span id="fileName"></span>
       </div>
       <div class="form-group">
-        <%= button_tag class: "btn btn-primary hidden", id: "upload-btn" do %>
+        <%= button_tag class: "btn btn-primary hidden", id: "uploadBtn", data: { disable_with: "處理中" } do %>
           <i class="fa fa-cloud-download"></i>
           轉換並下載
         <% end %>
@@ -36,9 +36,9 @@
   $("#uploadArea").on("click", function() {
     $("input#tickets_xml_file").click()
   })
-  $("input#tickets_xml_file").change(function() {
+  $("input#tickets_xml_file").on("change", function() {
     if ($('input#tickets_xml_file').val()) {
-      $('#upload-btn').removeClass("hidden")
+      $('#uploadBtn').removeClass("hidden")
       $("#fileName").html($('input#tickets_xml_file')[0].files[0].name)
     }
   });
