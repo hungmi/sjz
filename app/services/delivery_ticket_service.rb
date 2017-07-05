@@ -22,7 +22,7 @@ class DeliveryTicketService
   	sample_sheet = book.worksheet('sample')
   	new_sheet = book.worksheet('tickets')
 
-  	total_rows, gap = 17, 1
+  	total_rows, gap = 17, 0
   	init_row = 0
   	# binding.pry
   	invoices.each do |invoice|
@@ -39,6 +39,7 @@ class DeliveryTicketService
 	  		new_sheet[init_row + 3, 1] = invoice[:GFMC]
 	  		new_sheet[init_row + 3, 4] = Date.parse invoice[:KPRQ]
 	  		new_sheet[init_row + 3, 6] = invoice[:FPHM]
+	  		new_sheet.row(init_row + 3).height = 49.5
 
 		  	new_sheet.merge_cells(init_row, 0, init_row, 6)
 		  	new_sheet.merge_cells(init_row + 1, 0, init_row + 1, 6)
@@ -52,12 +53,16 @@ class DeliveryTicketService
 	  		invoice_details.each do |order_item|
 	  			if order_item_row < order_sum_row
 			  		new_sheet.row(order_item_row).replace ["", order_item[:SPMC], order_item[:JLDW], order_item[:SL].to_i]
+				  	new_sheet.row(order_item_row).height = 18
 			  		order_item_row += 1
 			  		order_sum += order_item[:SL].to_i
+			  	else
+			  		p "#{invoice[:FPHM]}有超過六項"
 			  	end
 		  	end
 		  	new_sheet[order_sum_row, 3] = order_sum
-		  	init_row += 18
+				new_sheet.row(order_item_row).height = 18
+		  	init_row += total_rows + gap
 		  end
 	  end
 	  # new_sheet.column(1).width = 55
