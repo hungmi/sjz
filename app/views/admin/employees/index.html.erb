@@ -1,17 +1,17 @@
 <h1 class="page-header">
-  人員總覽
+  <%= t ".header" %>
   <br class="hidden-md hidden-lg">
   <%= link_to admin_departments_path, class: "btn btn-link pb-0" do %>
     <i class="fa fa-users"></i>
-    部門管理
+    <%= t "admin.departments.index.header" %>
   <% end %>
   <%= link_to new_admin_employee_path, class: "btn btn-primary pull-right" do %>
     <i class="fa fa-plus"></i>
-    新人員
+    <%= t ".actions.new" %>
   <% end %>
   <%= link_to admin_employees_path(format: :xls), class: "btn btn-success pull-right mr-1" do %>
     <i class="fa fa-arrow-circle-down"></i>
-    導出 CSV
+    <%= t "admin.export_csv" %>
   <% end %>
 </h1>
 

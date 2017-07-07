@@ -1,34 +1,34 @@
-<h1 class="page-header">歡迎使用三角洲集團內部系統</h1>
-<h3>財務部</h3>
+<h1 class="page-header"><%= t ".header" %></h1>
+<h3><%= t "finance.name" %></h3>
 <div class="row mt-5 docks">
   <%= link_to admin_finance_tickets_uploading_path, class: "col-xs-12 col-sm-4 col-md-3 dock" do %>
     <div class="panel panel-default">
       <div class="panel-body">
         <i class="fa fa-files-o"></i>
-        送貨單轉換
+        <%= t "finance.menu.delivery_list_conversion" %>
       </div>
     </div>
   <% end %>
 </div>
 
-<h3>銷售部</h3>
+<h3><%= t "marketing.name" %></h3>
 <div class="row mt-5 docks">
   <%= link_to root_path, class: "col-xs-12 col-sm-4 col-md-3 dock" do %>
     <div class="panel panel-default">
       <div class="panel-body">
         <i class="fa fa-address-card-o"></i>
-        客戶總覽
+        <%= t "marketing.menu.customer_management" %>
       </div>
     </div>
   <% end %>
 </div>
 
-<h3>行政部</h3>
+<h3><%= t "administration.name" %></h3>
 <div class="row mt-5 docks">
   <%= link_to admin_items_path, class: "col-xs-12 col-sm-4 col-md-3 dock" do %>
     <div class="panel panel-default">
       <div class="panel-body">
-        財產管理
+        <%= t "administration.menu.asset_management" %>
       </div>
     </div>
   <% end %>
@@ -36,7 +36,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <i class="fa fa-users"></i>
-        通訊錄
+        <%= t "administration.menu.contacts" %>
       </div>
     </div>
   <% end %>

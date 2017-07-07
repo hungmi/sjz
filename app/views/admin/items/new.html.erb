@@ -2,7 +2,7 @@
   登記財產
   <%= link_to admin_items_path, class: "btn btn-link btn-xs-sm" do %>
   	<i class="fa fa-reply"></i>
-  	返回
+  	<%= t "back" %>
   <% end %>
   <%= link_to upload_admin_items_path, class: "btn btn-primary pull-right", data: { toggle: "modal", target: "#uploadItems" } do %>
     <i class="fa fa-plus"></i>

@@ -1,35 +1,77 @@
 zh-CN:
+  company: 三角洲集团
+  back: 返回
+  finance:
+    name: 财务部
+    menu:
+      delivery_list_conversion: 送货单转换
+  administration: 
+    name: 行政部
+    menu:
+      asset_management: 财产管理
+      contacts: 通讯录
+  marketing:
+    name: 市场营销部
+    menu:
+      customer_management: 客户总览
+  admin:
+    pages:
+      dashboard:
+        header: 欢迎使用三角洲集团内部系统
+    export_csv: 导出 CSV
+    finance:
+      tickets:
+        uploading:
+          header: 送货单转换
+          upload_xml: 上传发票 xml 档
+          help_xml: 如何取得发票 xml 档？
+          convert_and_download: 转换并下载
+    items:
+      index:
+        header: "财产总览"
+        actions:
+          new: "登陆财产"
+    employees:
+      index:
+        header: "人员总览"
+        actions:
+          new: "新人员"
+    departments:
+      index:
+        header: "部门总览"
+        actions:
+          new: "新部门"
   activerecord:
     models:
       item:
-        one: "財產"
-        other: "所有財產"
+        one: "财产"
+        other: "所有财产"
       employee:
-        one: "人員"
-        other: "所有人員"
+        one: "人员"
+        other: "所有人员"
       department:
-        one: "部門"
-        other: "所有部門"
+        one: "部门"
+        other: "所有部门"
     attributes:
       item:
-        image: "財產圖片"
-        spec: "詳細資訊"
-        quantity: "數量"
-        unit: "單位"
-        id: "財產編碼"
-        name: "登記名稱"
-        department_id: "歸屬部門"
+        image: "财产图片"
+        spec: "详细资讯"
+        quantity: "数量"
+        unit: "单位"
+        id: "财产编码"
+        name: "登记名称"
+        department_id: "归属部门"
         employee_id: "使用人"
       employee:
-        title: "職務"
+        title: "职务"
         name: "姓名"
-        mobile_phone: "手機"
-        tel: "座機"
-        ext: "分機"
-        department_id: "部門"
+        mobile_phone: "手机"
+        tel: "座机"
+        ext: "分机"
+        department_id: "部门"
       department:
-        name: "部門名稱"
-        ordering: "顯示順序"
+        name: "部门名称"
+        ordering: "显示顺序"
     errors:
       messages:
         record_invalid: "验证失败: %{errors}"
@@ -168,8 +210,8 @@ zh-CN:
     template:
       body: 如下字段出现错误：
       header:
-        one: 有 1 个错误发生导致「%{model}」无法被保存。
-        other: 有 %{count} 个错误发生导致「%{model}」无法被保存。
+        one: 有 1 个错误发生导致“%{model}”无法被保存。
+        other: 有 %{count} 个错误发生导致“%{model}”无法被保存。
   helpers:
     select:
       prompt: 请选择
