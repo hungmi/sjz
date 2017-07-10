@@ -1,0 +1,9 @@
+# Logfile created on 2017-07-10 17:53:41 +0800 by logger.rb/56815
+E, [2017-07-10T17:53:43.587070 #11002] ERROR -- : RequestId: 59634EA72FADF34C33B0C144, Code: InvalidBucketName, Message: The specified bucket is not valid., HostId: doc-center2.doc-center2.oss-cn-shenzhen.aliyuncs.com, BucketName: doc-center2.doc-center2, HTTPCode: 400
+I, [2017-07-10T18:04:28.730988 #11002]  INFO -- : Begin list buckets, options: {}
+I, [2017-07-10T18:04:30.660443 #11002]  INFO -- : Done list buckets, buckets: [#<Aliyun::OSS::Bucket:0x007fe6832a9c40 @name="doc-center2", @location="oss-cn-shenzhen", @creation_time=2017-07-10 08:56:16 UTC, @protocol=#<Aliyun::OSS::Protocol:0x007fe683240d80 @config=#<Aliyun::OSS::Config:0x007fe6832414d8 @endpoint=#<URI::HTTP http://oss-cn-shenzhen.aliyuncs.com>, @cname=nil, @sts_token=nil, @access_key_id="LTAIKGXFiJ4OX1SE", @access_key_secret="pFVmuR3cZ9sW1JEuYN4dVoyIqoal5O", @open_timeout=nil, @read_timeout=nil, @download_crc_enable=false, @upload_crc_enable=true>, @http=#<Aliyun::OSS::HTTP:0x007fe683240d58 @config=#<Aliyun::OSS::Config:0x007fe6832414d8 @endpoint=#<URI::HTTP http://oss-cn-shenzhen.aliyuncs.com>, @cname=nil, @sts_token=nil, @access_key_id="LTAIKGXFiJ4OX1SE", @access_key_secret="pFVmuR3cZ9sW1JEuYN4dVoyIqoal5O", @open_timeout=nil, @read_timeout=nil, @download_crc_enable=false, @upload_crc_enable=true>>>>], more: {}
+I, [2017-07-10T18:04:47.346327 #11002]  INFO -- : Begin create bucket, name: doc-center3, opts: {}
+I, [2017-07-10T18:04:49.849408 #11002]  INFO -- : Done create bucket
+I, [2017-07-10T18:05:15.178877 #11002]  INFO -- : Begin delete bucket: doc-center3
+I, [2017-07-10T18:05:15.522171 #11002]  INFO -- : Done delete bucket
+E, [2017-07-10T18:07:04.119304 #11002] ERROR -- : RequestId: 596351C7B551FD8C3DD31293, HTTPCode: 404
