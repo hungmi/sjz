@@ -2,6 +2,14 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "admin/pages#dashboard"
   namespace :admin do
+    resources :iso_docs
+    resources :docs do
+      member do
+        get "download"
+        get "replace"
+        post "upgrade"
+      end
+    end
     resources :items do
       collection do
         post "upload"

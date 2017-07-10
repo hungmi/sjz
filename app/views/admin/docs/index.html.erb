@@ -1,0 +1,38 @@
+<h1 class="page-header">
+  <%= t "admin.#{controller_name}.index.header" %>
+  <br class="hidden-md hidden-lg">
+  <% if controller_name == "iso_docs" %>
+    <%= link_to new_admin_iso_doc_path, class: "btn btn-primary pull-right" do %>
+      <i class="fa fa-plus"></i>
+      <%= t "admin.docs.new.header" %>
+    <% end %>
+  <% else %>
+    <%= link_to new_admin_doc_path, class: "btn btn-primary pull-right" do %>
+      <i class="fa fa-plus"></i>
+      <%= t "admin.docs.new.header" %>
+    <% end %>
+  <% end %>
+</h1>
+
+<%= link_to root_path, class: "btn btn-default btn-xs abs-left mb-3" do %>
+  <i class="fa fa-angle-double-left"></i> <%= t "back" %>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <th><%= Doc.human_attribute_name(:name) %></th>
+      <% if controller_name == "iso_docs" %>
+        <th><%= Doc.human_attribute_name(:code) %></th>
+      <% end %>
+      <th><%= Doc.human_attribute_name(:description) %></th>
+      <th><%= Doc.human_attribute_name(:updated_at) %></th>
+      <th></th>
+    </thead>
+    <tbody class="ajax-trigger-container">
+      <%= render @docs %>
+    </tbody>
+  </table>
+</div>
+
+<%= render "admin/common/modal", model_name: "Doc", remote: true %>

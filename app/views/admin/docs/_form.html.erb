@@ -1,0 +1,92 @@
+<%= form_for([:admin, @doc], html: { class: "col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8" }) do |f| %>
+  <%= form_errors(@doc) %>
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+    	<div class="form-group row">
+        <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <%= file_field_tag :file, accept: ".pdf, .xls, .csv, .xlsx, .doc, .docx, text/txt, image/jpg, image/jpeg, image/png", class: "form-control-file", disabled: (@doc.persisted?) %>
+        </div>
+      </div>
+      <% if false %>
+      <div class="form-group row">
+        <%= f.label :department_id, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <% if @departments.present? %>
+            <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control select2" %>
+          <% else %>
+            <div style="padding: 9px 3px;">
+              尚未建立任何部門
+              <%= link_to "前往建立", new_admin_department_path %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+      <% if controller_name == "iso_docs" %>
+	      <div class="checkbox col-xs-8 col-xs-offset-4">
+	      	<label>
+	        	<%= f.check_box :iso, disabled: (@doc.persisted?) %>
+	        	<%= Doc.human_attribute_name(:iso) %>
+	      	</label>
+	      </div>
+	      <div class="form-group row">
+	        <%= f.label :code, class: "col-xs-4 col-form-label" %>
+	        <div class="col-xs-8">
+	          <%= f.text_field :code, class: "form-control", disabled: (@doc.persisted?) %>
+	        </div>
+	        <div class="col-xs-12">
+	        	<% if @doc.persisted? %>
+	        		<p class="help-block"><%= t(".replace_hint") %></p>
+	        	<% else %>
+	        		<p class="help-block"><%= t(".code_hint") %></p>
+	        	<% end %>
+	        </div>
+	      </div>
+	    <% end %>
+      <% if @doc.persisted? %>
+	      <%= link_to replace_admin_doc_path(@doc), class: "btn btn-info mb-3" do %>
+					<i class="fa fa-upload"></i>
+					<%= t(".replace") %>
+				<% end %>
+			<% end %>
+      <div class="form-group row">
+        <%= f.label :name, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :description, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <%= f.text_area :description, rows: count_row(f.object.description), class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.label :note, class: "col-xs-4 col-form-label" %>
+        <div class="col-xs-8">
+          <%= f.text_area :note, rows: count_row(f.object.note), class: "form-control" %>
+        </div>
+      </div>
+      
+      <%= f.submit class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+  function showImage(src,target) {
+    var fr=new FileReader();
+    // when image is loaded, set the src of the image where you want to display it
+    fr.onload = function(e) {
+      target.src = this.result;
+    };
+    src.addEventListener("change",function() {
+      // fill fr with image data    
+      fr.readAsDataURL(src.files[0]);
+    });
+  }
+
+  var src = document.getElementById("doc_image");
+  var target = document.getElementById("target");
+  showImage(src,target);
+</script>

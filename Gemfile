@@ -70,6 +70,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'ransack'
 gem 'spreadsheet'
+gem 'carrierwave', '~> 1.0'
 
 group :development, :test do
   gem 'pry-byebug'

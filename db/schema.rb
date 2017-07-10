@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209092356) do
+ActiveRecord::Schema.define(version: 20170707150126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 20161209092356) do
     t.integer "ordering", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "docs", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code"
+    t.text "description"
+    t.text "note"
+    t.boolean "public"
+    t.boolean "iso", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_docs_on_code", unique: true
   end
 
   create_table "employees", id: :serial, force: :cascade do |t|
@@ -46,6 +58,15 @@ ActiveRecord::Schema.define(version: 20161209092356) do
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_items_on_department_id"
     t.index ["employee_id"], name: "index_items_on_employee_id"
+  end
+
+  create_table "pins", force: :cascade do |t|
+    t.string "file"
+    t.string "pinnable_type"
+    t.bigint "pinnable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pinnable_type", "pinnable_id"], name: "index_pins_on_pinnable_type_and_pinnable_id"
   end
 
   add_foreign_key "employees", "departments"

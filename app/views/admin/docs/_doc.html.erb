@@ -1,0 +1,18 @@
+<tr>
+	<td><%= doc.name %></td>
+	<% if action_name == "iso" %>
+		<td><%= doc.code %></td>
+	<% end %>
+	<td><%= doc.description %></td>
+	<td><%= doc.updated_at.strftime("%F %T") %></td>
+	<td>
+		<%= link_to edit_admin_doc_path(doc), class: "btn btn-primary btn-xs mr-3" do %>
+			<i class="fa fa-pencil"></i>
+			<%= t("edit") %>
+		<% end %>
+		<%= link_to download_admin_doc_path(doc), class: "btn btn-success btn-xs" do %>
+			<i class="fa fa-download"></i>
+			<%= t("download") %>
+		<% end %>
+	</td>
+</tr>

@@ -1,6 +1,12 @@
 zh-CN:
   company: 三角洲集团
   back: 返回
+  edit: 编辑
+  download: 下载
+  daily:
+    name: 日常
+    menu:
+      index: 文档管理
   finance:
     name: 财务部
     menu:
@@ -10,6 +16,7 @@ zh-CN:
     menu:
       asset_management: 财产管理
       contacts: 通讯录
+      iso: "ISO 文件"
   marketing:
     name: 市场营销部
     menu:
@@ -19,6 +26,7 @@ zh-CN:
       dashboard:
         header: 欢迎使用三角洲集团内部系统
     export_csv: 导出 CSV
+    file: 档案
     finance:
       tickets:
         uploading:
@@ -26,52 +34,77 @@ zh-CN:
           upload_xml: 上传发票 xml 档
           help_xml: 如何取得发票 xml 档？
           convert_and_download: 转换并下载
+    docs:
+      index:
+        header: 日常文档
+      new:
+        header: 上传文档
+      edit:
+        header: 更新文档
+      form:
+        code_hint: 请参考质量手册正确定义版本号，再进行建立。
+        replace: 上传新版本
+        replace_hint: 要更改版本号，请上传新版本。
+    iso_docs:
+      index:
+        header: ISO 文档总览
     items:
       index:
-        header: "财产总览"
-        actions:
-          new: "登陆财产"
+        header: 财产总览
+      new:
+        header: 登陆财产
     employees:
       index:
-        header: "人员总览"
-        actions:
-          new: "新人员"
+        header: 人员总览
+      new:
+        header: 新人员
+        upload: 上傳人事資料
     departments:
       index:
-        header: "部门总览"
-        actions:
-          new: "新部门"
+        header: 部门总览
+      new:
+        header: 新部门
   activerecord:
     models:
       item:
-        one: "财产"
-        other: "所有财产"
+        one: 财产
+        other: 所有财产
       employee:
-        one: "人员"
-        other: "所有人员"
+        one: 人员
+        other: 所有人员
       department:
-        one: "部门"
-        other: "所有部门"
+        one: 部门
+        other: 所有部门
+      doc:
+        one: 文档
+        other: 所有文档
     attributes:
       item:
-        image: "财产图片"
-        spec: "详细资讯"
-        quantity: "数量"
-        unit: "单位"
-        id: "财产编码"
-        name: "登记名称"
-        department_id: "归属部门"
-        employee_id: "使用人"
+        image: 财产图片
+        spec: 详细资讯
+        quantity: 数量
+        unit: 单位
+        id: 财产编码
+        name: 登记名称
+        department_id: 归属部门
+        employee_id: 使用人
       employee:
-        title: "职务"
-        name: "姓名"
-        mobile_phone: "手机"
-        tel: "座机"
-        ext: "分机"
-        department_id: "部门"
+        title: 职务
+        name: 姓名
+        mobile_phone: 手机
+        tel: 座机
+        ext: 分机
+        department_id: 部门
       department:
-        name: "部门名称"
-        ordering: "显示顺序"
+        name: 部门名称
+        ordering: 显示顺序
+      doc:
+        name: 文档名称
+        iso: "此为 ISO 文件"
+        code: 版本号
+        description: 描述
+        note: 备注
+        updated_at: 上次更新
     errors:
       messages:
         record_invalid: "验证失败: %{errors}"
@@ -216,7 +249,7 @@ zh-CN:
     select:
       prompt: 请选择
     submit:
-      create: 新增%{model}
+      create: 建立%{model}
       submit: 储存%{model}
       update: 更新%{model}
   number:

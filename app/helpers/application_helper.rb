@@ -17,4 +17,8 @@ module ApplicationHelper
       " data-url=#{send("edit_#{obj.class.model_name.singular}_path", obj)}".html_safe
     end
   end
+
+  def count_row(text)
+    text.nil? ? 4 : (text.length / 14.0) + 2
+  end
 end

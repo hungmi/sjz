@@ -45,6 +45,8 @@ class DeliveryTicketService
 		  	new_sheet.merge_cells(init_row + 1, 0, init_row + 1, 6)
 		  	new_sheet.merge_cells(init_row + 2, 0, init_row + 2, 6)
 		  	new_sheet.merge_cells(init_row + 3, 4, init_row + 3, 5)
+		  	new_sheet.merge_cells(init_row + 4, 7, init_row + 14, 7)
+		  	new_sheet.column(7).width = 3
 	  		#
 		  	order_item_row = init_row + 5
 		  	order_sum_row = init_row + 11
