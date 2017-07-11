@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170707150126) do
   create_table "docs", force: :cascade do |t|
     t.string "name", null: false
     t.string "code"
+    t.string "oss_key"
     t.text "description"
     t.text "note"
     t.boolean "public"
