@@ -23,10 +23,10 @@
         </div>
       </div>
       <% end %>
-      <% if controller_name == "iso_docs" %>
+      <% if controller_name == "iso_docs" || @doc.iso? %>
 	      <div class="checkbox col-xs-8 col-xs-offset-4">
 	      	<label>
-	        	<%= f.check_box :iso, disabled: (@doc.persisted?) %>
+	        	<%= f.check_box :iso, disabled: true %>
 	        	<%= Doc.human_attribute_name(:iso) %>
 	      	</label>
 	      </div>
@@ -49,13 +49,13 @@
 					<i class="fa fa-upload"></i>
 					<%= t(".replace") %>
 				<% end %>
-			<% end %>
-      <div class="form-group row">
-        <%= f.label :name, class: "col-xs-4 col-form-label" %>
-        <div class="col-xs-8">
-          <%= f.text_field :name, class: "form-control" %>
+        <div class="form-group row">
+          <%= f.label :name, class: "col-xs-4 col-form-label" %>
+          <div class="col-xs-8">
+            <%= f.text_field :name ,class: "form-control" %>
+          </div>
         </div>
-      </div>
+      <% end %>
       <div class="form-group row">
         <%= f.label :description, class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">

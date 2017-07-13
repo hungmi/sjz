@@ -2,12 +2,12 @@ class Admin::DocsController < AdminController
   before_action :find_doc, only: [:download, :show, :edit, :update, :destroy]
 
   def download
-    url = OssService.new.return_download_url "#{@doc.oss_key}.xls"
+    url = OssService.new.download_url @doc.oss_name
     if url.present?
       redirect_to url
     else
       flash[:danger] = "發生錯誤，請稍候再試。"
-      redirect_to admin_docs_path
+      redirect_back fallback_location: @doc.index_url
     end
   end
 
@@ -20,16 +20,11 @@ class Admin::DocsController < AdminController
   end
 
   def create
-    @doc = Doc.new(doc_params)
+    @doc = Doc.new(doc_params.merge({name: params[:file].original_filename}))
     if @doc.save
-      binding.pry
-      OssService.new.upload(params[:file], @doc.oss_key)
+      OssService.new.upload(params[:file], @doc.oss_name)
       flash[:success] = "建立成功"
-      if @doc.normal?
-        redirect_to admin_docs_path
-      else
-        redirect_to admin_iso_docs_path
-      end
+      redirect_to @doc.index_url
     else
       render :new
     end
@@ -44,11 +39,7 @@ class Admin::DocsController < AdminController
   def update
     if @doc.update(doc_params)
       flash[:success] = "更新成功"
-      if @doc.normal?
-        redirect_to admin_docs_path
-      else
-        redirect_to admin_iso_docs_path
-      end
+      redirect_to @doc.index_url
     else
       render :edit
     end
@@ -60,11 +51,7 @@ class Admin::DocsController < AdminController
     else
       flash[:danger] = "刪除失敗"
     end
-    if @doc.normal?
-      redirect_to admin_docs_path
-    else
-      redirect_to admin_iso_docs_path
-    end
+    redirect_back fallback_location: @doc.index_url
   end
 
   private
@@ -74,6 +61,6 @@ class Admin::DocsController < AdminController
     end
 
     def doc_params
-      params.require(:doc).permit(:name, :code, :description, :note, :iso)
+      params.require(:doc).permit(:name, :code, :description, :note, :iso, :oss_key)
     end
 end

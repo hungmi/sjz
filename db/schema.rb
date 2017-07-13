@@ -25,14 +25,15 @@ ActiveRecord::Schema.define(version: 20170707150126) do
   create_table "docs", force: :cascade do |t|
     t.string "name", null: false
     t.string "code"
-    t.string "oss_key"
     t.text "description"
     t.text "note"
     t.boolean "public"
     t.boolean "iso", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "oss_key"
     t.index ["code"], name: "index_docs_on_code", unique: true
+    t.index ["oss_key"], name: "index_docs_on_oss_key", unique: true
   end
 
   create_table "employees", id: :serial, force: :cascade do |t|
