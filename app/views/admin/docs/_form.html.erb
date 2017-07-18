@@ -26,7 +26,9 @@
       <% if controller_name == "iso_docs" || @doc.iso? %>
 	      <div class="checkbox col-xs-8 col-xs-offset-4">
 	      	<label>
-	        	<%= f.check_box :iso, disabled: true %>
+	        	<%= f.check_box :iso, class: "hidden" %>
+            <!-- 因為上面的 checkbox 直接 disable 的話會被 POST 忽略掉，所以用一個隱藏的藏起來 -->
+            <%= check_box_tag :iso, { checked: true }, disabled: true %>
 	        	<%= Doc.human_attribute_name(:iso) %>
 	      	</label>
 	      </div>
@@ -73,20 +75,3 @@
     </div>
   </div>
 <% end %>
-<script type="text/javascript">
-  function showImage(src,target) {
-    var fr=new FileReader();
-    // when image is loaded, set the src of the image where you want to display it
-    fr.onload = function(e) {
-      target.src = this.result;
-    };
-    src.addEventListener("change",function() {
-      // fill fr with image data    
-      fr.readAsDataURL(src.files[0]);
-    });
-  }
-
-  var src = document.getElementById("doc_image");
-  var target = document.getElementById("target");
-  showImage(src,target);
-</script>

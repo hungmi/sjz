@@ -40,6 +40,14 @@
 
   <h3><%= t "administration.name" %></h3>
   <div class="row mt-5 docks">
+    <%= link_to admin_iso_docs_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <i class="fa fa-paperclip"></i>
+          <%= t "administration.menu.iso" %>
+        </div>
+      </div>
+    <% end %>
     <%= link_to admin_items_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
       <div class="panel panel-default">
         <div class="panel-body">
@@ -53,14 +61,6 @@
         <div class="panel-body">
           <i class="fa fa-users"></i>
           <%= t "administration.menu.contacts" %>
-        </div>
-      </div>
-    <% end %>
-    <%= link_to admin_iso_docs_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i class="fa fa-paperclip"></i>
-          <%= t "administration.menu.iso" %>
         </div>
       </div>
     <% end %>

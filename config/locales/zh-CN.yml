@@ -2,7 +2,11 @@ zh-CN:
   company: 三角洲集团
   back: 返回
   edit: 编辑
-  download: 下载
+  actions:
+    docs:
+      download: 下载
+      preview: 预览
+      share: 分享
   daily:
     name: 日常
     menu:
@@ -111,6 +115,12 @@ zh-CN:
         restrict_dependent_destroy:
           has_one: 由于 %{record} 需要此记录，所以无法移除记录
           has_many: 由于 %{record} 需要此记录，所以无法移除记录
+      models:
+        doc:
+          attributes:
+            name:
+              blank: 空白
+
   date:
     abbr_day_names:
     - 周日

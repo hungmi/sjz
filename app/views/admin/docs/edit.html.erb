@@ -5,3 +5,9 @@
 <div class="mx-auto">
   <%= render "form", doc: @doc %>
 </div>
+
+<% if @doc.office? %>
+	<div class="mt-5">
+		<iframe width="100%" height="800" frameborder="0" scrolling="no" src="<%= @doc.office_embed_url %>&wdDownloadButton=True"></iframe>
+	</div>
+<% end %>

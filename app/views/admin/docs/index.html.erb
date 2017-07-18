@@ -35,4 +35,40 @@
   </table>
 </div>
 
-<%= render "admin/common/modal", model_name: "Doc", remote: true %>
+<div class="modal fade" id="docShareUrl">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">分享鏈結</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="share_timeout">有效時間（秒）</label><br>
+          <%= text_field_tag :share_timeout, 600, style: "width: 100px;", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <label for="share_url">按右鍵複製</label><br>
+          <%= text_field_tag :share_url, nil, style: "width: 100%;", class: "form-control" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+  $(".btn-share").on("click", function() {
+    window.share_url = $(this).siblings(".btn-download").attr("href")
+  })
+  $("#docShareUrl").on("shown.bs.modal", function () {
+    $("#share_url").val(window.location.origin + window.share_url.replace("download", "share") + "?share_timeout=600")
+    $("#share_url").select()
+  })
+  $("#share_timeout").on("change", function() {
+    $("#share_url").val(window.location.origin + window.share_url.replace("download", "share") + "?share_timeout=" + $(this).val())
+  })
+</script>
