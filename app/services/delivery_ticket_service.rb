@@ -3,20 +3,63 @@ class DeliveryTicketService
 	end
 
 	def self.transform file
-	  invoices = Nokogiri::XML(file).css("Invoice").collect do |a|
-	    {
-	      GFMC: a.css("GFMC").text,
-	      KPRQ: a.css("KPRQ").text,
-	      FPHM: a.css("FPHM").text,
-	      Detail: a.css("Detail").collect do |detail|
-	        {
-	          SPMC: detail.css("SPMC").text,
-	          JLDW: detail.css("JLDW").text,
-	          SL: detail.css("SL").text,
-	        }
-	      end
-	    }
+	  # invoices = Nokogiri::XML(file).css("Invoice").collect do |a|
+	  #   {
+	  #     GFMC: a.css("GFMC").text,
+	  #     KPRQ: a.css("KPRQ").text,
+	  #     FPHM: a.css("FPHM").text,
+	  #     Detail: a.css("Detail").collect do |detail|
+	  #       {
+	  #         SPMC: detail.css("SPMC").text,
+	  #         JLDW: detail.css("JLDW").text,
+	  #         SL: detail.css("SL").text,
+	  #       }
+	  #     end
+	  #   }
+	  # end
+
+	  invoices_book = Spreadsheet.open(file.path)
+	  invoices_sheet = invoices_book.worksheets.first
+	  invoices = {}
+	  title_row = 0
+	  invoices_sheet.rows.each_with_index do |row, row_index|
+	  	if row[0] == "发票代码"
+	  		title_row = row_index
+	  		break
+	  	end
 	  end
+
+	  if title_row > 0 # 表示有找到抬頭
+		  invoices_sheet.rows.each_with_index do |row, row_index|
+		  	if (row_index > title_row && invoices_sheet[row_index, 1] != "发票号码") # 從抬頭的下一 row 開始讀
+		  		if invoices_sheet[row_index, 1].present?
+		  			# 如果此 row 有發票號碼，表示為一張發票的開頭
+						@fphm = invoices_sheet[row_index, 1]
+		  			invoices["FP#{@fphm}"] = {
+		  				GFMC: invoices_sheet[row_index, 2],
+				      KPRQ: invoices_sheet[row_index, 6],
+				      FPHM: invoices_sheet[row_index, 1],
+				      Detail: [{
+			          SPMC: invoices_sheet[row_index, 9],
+			          JLDW: invoices_sheet[row_index, 11],
+			          SL: invoices_sheet[row_index, 12],
+			        }]
+		  			}
+		  		elsif (invoices_sheet[row_index, 9].present? && invoices_sheet[row_index, 11].present? && invoices_sheet[row_index, 12].present?)
+		  			# 如果此 row 有商品名稱、計量單位、數量，表示為一張發票的延續
+		  			if invoices["FP#{@fphm}"].present?
+		  				invoices["FP#{@fphm}"][:Detail] << {
+			          SPMC: invoices_sheet[row_index, 9],
+			          JLDW: invoices_sheet[row_index, 11],
+			          SL: invoices_sheet[row_index, 12],
+			        }
+			      end
+		  		end
+		  	end
+		  end
+		end
+
+	  # binding.pry
     
 		book = Spreadsheet.open('app/assets/files/delivery_list_sample.xls')
   	sample_sheet = book.worksheet('sample')
@@ -24,8 +67,8 @@ class DeliveryTicketService
 
   	total_rows, gap = 17, 0
   	init_row = 0
-  	# binding.pry
-  	invoices.each do |invoice|
+  	# 此處變更成迭代 values 了，因為原本的 invoices 是一個矩陣，現在變 hash 了
+  	invoices.values.each do |invoice|
   		invoice[:Detail].each_slice(6) do |invoice_details|
 		  	active_row = init_row
 	  		sample_sheet.rows[0..(total_rows-1)].each do |row|

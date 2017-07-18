@@ -16,7 +16,7 @@
   <div class="panel-body text-center">
     <%= form_with url: admin_finance_tickets_transform_path, multipart: true, id: "tickets_xml_file_form", data: { remote: false } do %>
       <div class="form-group">
-        <%= file_field_tag :tickets_xml_file, accept: ".xml" %>
+        <%= file_field_tag :tickets_xml_file, accept: ".xls, .xml" %>
         <!-- <div class="well" style="background-color: transparent; box-shadow: none; border: none;" id="uploadArea">
           <i class="fa fa-cloud-upload" style="font-size: 60px;""></i>
         </div>

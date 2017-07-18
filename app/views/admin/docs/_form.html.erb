@@ -5,7 +5,7 @@
     	<div class="form-group row">
         <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">
-          <%= file_field_tag :file, accept: ".pdf, .xls, .csv, .xlsx, .doc, .docx, text/txt, image/jpg, image/jpeg, image/png", class: "form-control-file", disabled: (@doc.persisted?) %>
+          <%= file_field_tag :file, accept: ".pdf, .xls, .csv, .xlsx, .doc, .docx, text/txt, image/jpg, image/jpeg, image/png, .exe", class: "form-control-file", disabled: (@doc.persisted?) %>
         </div>
       </div>
       <% if false %>
