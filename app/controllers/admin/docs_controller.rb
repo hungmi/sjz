@@ -1,8 +1,29 @@
 class Admin::DocsController < AdminController
-  before_action :find_doc, only: [:download, :show, :edit, :update, :destroy]
+  before_action :find_doc, only: [:share, :preview, :download, :show, :edit, :update, :destroy]
+  # before_action :find_by_oss_name, only: [:share, :preview, :download]
+
+  def share
+    url = @doc.download_url params[:share_timeout]
+    if url.present?
+      redirect_to url
+    else
+      flash[:danger] = "發生錯誤，請稍候再試。"
+      redirect_back fallback_location: @doc.index_url
+    end
+  end
+
+  def preview
+    url = @doc.preview_url
+    if url.present?
+      redirect_to url
+    else
+      flash[:danger] = "發生錯誤，請稍候再試。"
+      redirect_back fallback_location: @doc.index_url
+    end
+  end
 
   def download
-    url = OssService.new.download_url @doc.oss_name
+    url = @doc.download_url
     if url.present?
       redirect_to url
     else
@@ -20,9 +41,11 @@ class Admin::DocsController < AdminController
   end
 
   def create
-    @doc = Doc.new(doc_params.merge({name: params[:file].original_filename}))
+    @doc = Doc.new(doc_params.merge({name: params[:file].try(:original_filename)}))
     if @doc.save
-      OssService.new.upload(params[:file], @doc.oss_name)
+      if OssService.new.upload(params[:file], @doc.oss_name)
+        @doc.update_column(download_url: OssService.new.download_url(@doc.oss_name))
+      end
       flash[:success] = "建立成功"
       redirect_to @doc.index_url
     else
@@ -58,6 +81,10 @@ class Admin::DocsController < AdminController
 
     def find_doc
       @doc = Doc.find(params[:id])
+    end
+
+    def find_doc_by_oss_name
+      @doc = Doc.find_by_oss_name(params[:id])
     end
 
     def doc_params

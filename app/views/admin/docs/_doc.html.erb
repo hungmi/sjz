@@ -1,18 +1,26 @@
-<tr>
-	<td><%= doc.name %></td>
-	<% if action_name == "iso" %>
-		<td><%= doc.code %></td>
+<tr class="doc-row" data-url="<%= preview_admin_doc_path(id: doc.id, name: doc.name.gsub(/\./, "_")) %>">
+	<td class="clickable"><%= link_to doc.name, preview_admin_doc_path(id: doc.id, name: doc.name.gsub(/\./, "_")), target: "_blank" %></td>
+	<% if doc.iso? %>
+		<td class="clickable"><%= doc.code %></td>
 	<% end %>
-	<td><%= doc.description %></td>
-	<td><%= doc.updated_at.strftime("%F %T") %></td>
+	<td class="clickable"><%= doc.description %></td>
+	<td class="clickable"><%= doc.updated_at.strftime("%F %T") %></td>
 	<td>
-		<%= link_to edit_admin_doc_path(doc), class: "btn btn-primary btn-xs mr-3" do %>
+		<%= link_to edit_admin_doc_path(doc), class: "btn btn-primary btn-xs mr-1" do %>
 			<i class="fa fa-pencil"></i>
 			<%= t("edit") %>
 		<% end %>
-		<%= link_to download_admin_doc_path(doc), class: "btn btn-success btn-xs" do %>
+		<%= link_to preview_admin_doc_path(id: doc.id, name: doc.name.gsub(/\./, "_")), class: "btn btn-info btn-xs mr-1", target: "_blank" do %>
+			<i class="fa fa-eye"></i>
+			<%= t("actions.docs.preview") %>
+		<% end %>
+		<%= link_to download_admin_doc_path(id: doc.id, name: doc.name.gsub(/\./, "_")), class: "btn-download btn btn-success btn-xs mr-1", target: "_blank" do %>
 			<i class="fa fa-download"></i>
-			<%= t("download") %>
+			<%= t("actions.docs.download") %>
+		<% end %>
+		<%= link_to "#share", class: "btn-share btn btn-danger btn-xs", data: { toggle: "modal", target: "#docShareUrl" } do %>
+			<i class="fa fa-share"></i>
+			<%= t("actions.docs.share") %>
 		<% end %>
 	</td>
 </tr>

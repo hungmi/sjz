@@ -6,4 +6,6 @@
 //= require select2_locale_zh-CN
 //= require admin/nav
 //= require admin/app_init
+//= require admin/doc
+//= require admin/helper
 //= require turbolinks

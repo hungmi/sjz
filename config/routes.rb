@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     resources :iso_docs
     resources :docs do
       member do
-        get "download"
+        get ":name/download", action: :download, as: :download
+        get ":name/preview", action: :preview, as: :preview
+        get ":name/share", action: :share, as: :share
+        # get "preview"
+        # get "share"
         get "replace"
         post "upgrade"
       end
