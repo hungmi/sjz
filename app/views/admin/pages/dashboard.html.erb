@@ -1,68 +1,70 @@
 <h1 class="page-header"><%= t ".header" %></h1>
-<div class="col-md-6 col-sm-12">
-  <h3><%= t "daily.name" %></h3>
-  <div class="row mt-5 docks">
-    <%= link_to admin_docs_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i class="fa fa-paperclip"></i>
-          <%= t "daily.menu.index" %>
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    <h3><%= t "daily.name" %></h3>
+    <div class="row mt-5 docks">
+      <%= link_to admin_docs_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="fa fa-paperclip"></i>
+            <%= t "daily.menu.index" %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+
+    <h3><%= t "finance.name" %></h3>
+    <div class="row mt-5 docks">
+      <%= link_to admin_finance_tickets_uploading_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="glyphicon glyphicon-transfer"></i>
+            <%= t "finance.menu.delivery_list_conversion" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <h3><%= t "finance.name" %></h3>
-  <div class="row mt-5 docks">
-    <%= link_to admin_finance_tickets_uploading_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i class="glyphicon glyphicon-transfer"></i>
-          <%= t "finance.menu.delivery_list_conversion" %>
+  <div class="col-md-6 col-sm-12">
+    <h3><%= t "marketing.name" %></h3>
+    <div class="row mt-5 docks">
+      <%= link_to root_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="fa fa-address-card-o"></i>
+            <%= t "marketing.menu.customer_management" %>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+      <% end %>
+    </div>
 
-<div class="col-md-6 col-sm-12">
-  <h3><%= t "marketing.name" %></h3>
-  <div class="row mt-5 docks">
-    <%= link_to root_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i class="fa fa-address-card-o"></i>
-          <%= t "marketing.menu.customer_management" %>
+    <h3><%= t "administration.name" %></h3>
+    <div class="row mt-5 docks">
+      <%= link_to admin_iso_docs_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="fa fa-paperclip"></i>
+            <%= t "administration.menu.iso" %>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-
-  <h3><%= t "administration.name" %></h3>
-  <div class="row mt-5 docks">
-    <%= link_to admin_iso_docs_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i class="fa fa-paperclip"></i>
-          <%= t "administration.menu.iso" %>
+      <% end %>
+      <%= link_to admin_items_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="fa fa-cubes"></i>
+            <%= t "administration.menu.asset_management" %>
+          </div>
         </div>
-      </div>
-    <% end %>
-    <%= link_to admin_items_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i class="fa fa-cubes"></i>
-          <%= t "administration.menu.asset_management" %>
+      <% end %>
+      <%= link_to admin_employees_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="fa fa-users"></i>
+            <%= t "administration.menu.contacts" %>
+          </div>
         </div>
-      </div>
-    <% end %>
-    <%= link_to admin_employees_path, class: "col-xs-12 col-sm-6 col-md-4 dock" do %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i class="fa fa-users"></i>
-          <%= t "administration.menu.contacts" %>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

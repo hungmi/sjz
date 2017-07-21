@@ -4,6 +4,7 @@
 //= require jquery.qrcode.min
 //= require select2
 //= require select2_locale_zh-CN
+//= require admin/qrious.min
 //= require admin/nav
 //= require admin/app_init
 //= require admin/doc

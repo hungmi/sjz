@@ -2,13 +2,15 @@
 .admin {
   nav.navbar-primary {
     margin-bottom: 0px;
-    background-color: $navbar-primary-bg;
-    border: none;
+    background-color: #fff;
+    border-top: 6px solid $navbar-primary-bg;
+    border-bottom: 1px solid $navbar-primary-bg;
     border-radius: 0px;
+    color: $navbar-primary-bg;
     .navbar-brand {
       font-weight: bold;
       letter-spacing: 1px;
-      color: $navbar-primary-color;
+      color: $navbar-primary-bg;
     }
 
     .navbar-toggle {
@@ -19,23 +21,6 @@
     }
 
     .navbar-collapse {
-      @media only screen and (max-width: $grid-float-breakpoint - 1) {
-      // 行動版
-        li.dropdown {
-          & > .dropdown-toggle,
-          & > ul.dropdown-menu a {
-            color: $navbar-primary-color;
-            padding: 15px;
-            &:hover, &:focus {
-              background-color: $semi-navbar-primary-bg !important;
-              color: $navbar-primary-color;
-            }
-          }
-          & > ul.dropdown-menu a {
-            padding-left: 35px;
-          }
-        }
-      }
       @media only screen and (min-width: $grid-float-breakpoint) {
         // 桌面版
         li.dropdown {
@@ -43,15 +28,11 @@
           & > ul.dropdown-menu a {
             padding: 15px;
             &:hover, &:focus {
-              background-color: $semi-navbar-primary-bg !important;
-              color: $navbar-primary-color;
+              background-color: $navbar-primary-color !important;
             }
           }
           & > .dropdown-toggle {
-            color: $navbar-primary-color;
-          }
-          &.open > .dropdown-toggle {
-            background-color: $semi-navbar-primary-bg !important;
+            color: $navbar-primary-bg;
           }
           & > ul.dropdown-menu a {
             color: $navbar-primary-bg;
