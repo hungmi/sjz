@@ -5,8 +5,16 @@
     background-color: #fff;
     border-top: 6px solid $navbar-primary-bg;
     border-bottom: 1px solid $navbar-primary-bg;
+    border-right: none;
+    border-left: none;
     border-radius: 0px;
     color: $navbar-primary-bg;
+    @media only screen and (max-width: $grid-float-breakpoint - 1) {
+      position: fixed;
+      bottom: 0px;
+      z-index: 999;
+      width: 100%;
+    }
     .navbar-brand {
       font-weight: bold;
       letter-spacing: 1px;

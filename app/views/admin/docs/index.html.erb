@@ -70,7 +70,10 @@
           <label for="share_url">按右鍵複製</label><br>
           <%= text_area_tag :share_url, nil, style: "width: 100%;", class: "form-control" %>
         </div>
-        <canvas id="qr"></canvas>
+        <div class="form-group">
+          <canvas id="qr" class="hidden"></canvas>
+          <img id="qr-img"></canvas>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>

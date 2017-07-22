@@ -22,4 +22,8 @@ var update_share_modal_data = function(share_timeout) {
     value: share_url,
     size: 200
   });
+  var canvas = $('#qr');
+  // console.log(canvas);
+  var img = $(canvas)[0].toDataURL("image/png");
+  $("#qr-img").attr("src", img);
 }
