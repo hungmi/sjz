@@ -43,9 +43,7 @@ class Admin::DocsController < AdminController
   def create
     @doc = Doc.new(doc_params.merge({name: params[:file].try(:original_filename)}))
     if @doc.save
-      if OssService.new.upload(params[:file], @doc.oss_name)
-        @doc.update_column(download_url: OssService.new.download_url(@doc.oss_name))
-      end
+      OssService.new.upload(params[:file], @doc.oss_name)
       flash[:success] = "建立成功"
       redirect_to @doc.index_url
     else

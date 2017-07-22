@@ -22,7 +22,8 @@ class Doc < ApplicationRecord
 	end
 
 	def oss_name
-		self.oss_key + self.name[/\.[0-9a-z]+$/i]
+		file_ext = self.name[/\.[0-9a-z]+$/i]
+		self.name.gsub(file_ext, "_" + self.updated_at.strftime("%Y%m%d%H%M%S") + file_ext)
 	end
 
 	def index_url
