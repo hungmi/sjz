@@ -1,6 +1,6 @@
 class Admin::DocsController < AdminController
   before_action :find_doc, only: [:share, :preview, :download, :show, :edit, :update, :destroy]
-  # before_action :find_by_oss_name, only: [:share, :preview, :download]
+  before_action :find_folder, only: [:index, :new, :create, :edit, :update]
 
   def share
     url = @doc.download_url params[:share_timeout]
@@ -33,7 +33,7 @@ class Admin::DocsController < AdminController
   end
 
   def index
-    @docs = Doc.normal.order(updated_at: :desc, name: :asc).ransack(params[:q]).result
+    @docs = @folder.docs.order(updated_at: :desc, name: :asc).ransack(params[:q]).result
   end
 
   def new
@@ -43,7 +43,9 @@ class Admin::DocsController < AdminController
   def create
     @doc = Doc.new(doc_params.merge({name: params[:file].try(:original_filename)}))
     if @doc.save
-      OssService.new.upload(params[:file], @doc.oss_name)
+      if OssService.new.upload(params[:file], @doc.generate_oss_name)
+        @doc.update_column(:oss_key, @doc.generate_oss_name)
+      end
       flash[:success] = "建立成功"
       redirect_to @doc.index_url
     else
@@ -77,6 +79,10 @@ class Admin::DocsController < AdminController
 
   private
 
+    def find_folder
+      @folder = Folder.find(params[:folder_id])
+    end
+
     def find_doc
       @doc = Doc.find(params[:id])
     end
@@ -86,6 +92,6 @@ class Admin::DocsController < AdminController
     end
 
     def doc_params
-      params.require(:doc).permit(:name, :code, :description, :note, :iso, :oss_key)
+      params.require(:doc).permit(:name, :folder_id, :code, :description, :note, :iso, :oss_key)
     end
 end

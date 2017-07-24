@@ -104,6 +104,7 @@ zh-CN:
         ordering: 显示顺序
       doc:
         name: 文档名称
+        folder: 文件夹
         iso: "此为 ISO 文件"
         code: 版本号
         description: 描述

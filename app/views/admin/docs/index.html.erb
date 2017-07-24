@@ -1,29 +1,51 @@
 <h1 class="page-header">
   <%= t "admin.#{controller_name}.index.header" %>
-  <% if controller_name == "iso_docs" %>
-    <%= link_to new_admin_iso_doc_path, class: "btn btn-primary pull-right" do %>
-      <i class="fa fa-upload"></i>
-      <%= t "admin.docs.new.header" %>
-    <% end %>
-  <% else %>
-    <%= link_to new_admin_doc_path, class: "btn btn-primary pull-right" do %>
-      <i class="fa fa-upload"></i>
-      <%= t "admin.docs.new.header" %>
-    <% end %>
+  <%= link_to new_admin_folder_doc_path(folder_id: @folder.id), class: "btn btn-primary pull-right" do %>
+    <i class="fa fa-upload"></i>
+    <%= t "admin.docs.new.header" %>
   <% end %>
 </h1>
 
-<%= link_to root_path, class: "btn btn-default btn-xs abs-left mb-3" do %>
-  <i class="fa fa-angle-double-left"></i> <%= t "back" %>
-<% end %>
+<div class="row">
+  <div class="col-xs-2 col-sm-1">
+    <% if @folder.parent.present? %>
+      <%= link_to admin_folder_docs_path(folder_id: @folder.parent.try(:id)), class: "abs-left mb-3", style: "font-size: 24px;" do %>
+        <i class="fa fa-arrow-left"></i>
+      <% end %>
+    <% else %>
+      <%= link_to root_path, class: "abs-left mb-3", style: "font-size: 24px;" do %>
+        <i class="fa fa-arrow-left"></i>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-xs-10 col-sm-11">
+    <%= breadcrumb @folder %>
+  </div>
+</div>
+
 
 <div class="row mt-2 docks">
+  <% @folder.children.each do |folder| %>
+    <%= link_to admin_folder_docs_path(folder_id: folder.id) do %>
+      <div class="col-xs-12 col-sm-6 col-md-4 dock">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <%= folder.name %>
+          </div>
+          <div class="panel-body">
+            共 <%= folder.docs.size %> 個文件
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
   <% @docs.each do |doc| %>
     <div class="col-xs-12 col-sm-6 col-md-4 dock">
       <div class="panel panel-default">
         <div class="panel-body">
           <%= doc.name %>
-          <%= link_to edit_admin_doc_path(doc), class: "btn btn-xs" do %>
+          <%= link_to edit_admin_folder_doc_path(doc, folder_id: doc.folder_id), class: "btn btn-xs" do %>
             <i class="fa fa-pencil"></i>
           <% end %>
           <div class="clearfix"></div>
@@ -41,9 +63,6 @@
               <%= link_to "#share", class: "btn btn-sm btn-share", data: { toggle: "modal", target: "#docShareUrl" } do %>
                 <i class="fa fa-share"></i>
               <% end %>
-              <%= link_to "#share", class: "btn btn-sm" do %>
-                <i class="fa fa-qrcode"></i>
-              <% end %>
             </div>
           </div>
         </div>
@@ -52,32 +71,4 @@
   <% end %>
 </div>
 
-<div class="modal fade" id="docShareUrl">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">分享鏈結</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="share_timeout">有效時間（秒）</label><br>
-          <%= text_field_tag :share_timeout, 600, style: "width: 100px;", class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <label for="share_url">按右鍵複製</label><br>
-          <%= text_area_tag :share_url, nil, style: "width: 100%;", class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <canvas id="qr" class="hidden"></canvas>
-          <img id="qr-img"></canvas>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<%= render "share_modal" %>

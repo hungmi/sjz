@@ -3,11 +3,18 @@ class Doc < ApplicationRecord
 	scope :normal, -> { where(iso: false) }
 
 	validates :name, presence: { message: :blank }
-	validates :code, uniqueness: true, allow_nil: true
+	validates :code, uniqueness: true, allow_nil: true, allow_blank: true
 
-	has_secure_token :oss_key
+	before_create :nilify_empty_values
 
+	belongs_to :folder
 	has_many :pins, :as => :pinnable
+
+	def nilify_empty_values
+		attributes.each do |column, value|
+      self[column] = nil if self[column].kind_of? String and self[column].empty?
+    end
+	end
 
 	def iso?
 		self.iso
@@ -21,14 +28,18 @@ class Doc < ApplicationRecord
 		self.public
 	end
 
-	def oss_name
+	def generate_oss_name
 		file_ext = self.name[/\.[0-9a-z]+$/i]
-		self.name.gsub(file_ext, "_" + self.updated_at.strftime("%Y%m%d%H%M%S") + file_ext)
+		if file_ext.present?
+			self.name.gsub(file_ext, "_" + self.created_at.strftime("%Y%m%d%H%M%S") + file_ext)
+		else
+			self.name + "_" + self.created_at.strftime("%Y%m%d%H%M%S")
+		end
 	end
 
 	def index_url
 		routes = Rails.application.routes.url_helpers
-		self.normal? ? routes.admin_docs_path : routes.admin_iso_docs_path
+		routes.admin_folder_docs_path(folder_id: self.folder_id)
 	end
 
 	def office?
@@ -40,11 +51,11 @@ class Doc < ApplicationRecord
 	end
 
 	def download_url timeout = 60
-		OssService.new.download_url(self.oss_name, timeout)
+		OssService.new.download_url(self.oss_key, timeout)
 	end
 
 	def encode_download_url
-		URI.encode(OssService.new.download_url(self.oss_name), /\W/)
+		URI.encode(OssService.new.download_url(self.oss_key), /\W/)
 	end
 
 	def office_online_url
@@ -52,6 +63,6 @@ class Doc < ApplicationRecord
 	end
 
 	def office_embed_url
-		 "https://view.officeapps.live.com/op/embed.aspx?src=" + self.encode_download_url
+		"https://view.officeapps.live.com/op/embed.aspx?src=" + self.encode_download_url
 	end
 end

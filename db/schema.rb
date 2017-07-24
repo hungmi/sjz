@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707150126) do
+ActiveRecord::Schema.define(version: 20170722084538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,9 @@ ActiveRecord::Schema.define(version: 20170707150126) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "oss_key"
+    t.bigint "folder_id"
     t.index ["code"], name: "index_docs_on_code", unique: true
+    t.index ["folder_id"], name: "index_docs_on_folder_id"
     t.index ["oss_key"], name: "index_docs_on_oss_key", unique: true
   end
 
@@ -46,6 +48,14 @@ ActiveRecord::Schema.define(version: 20170707150126) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_employees_on_department_id"
+  end
+
+  create_table "folders", force: :cascade do |t|
+    t.string "name"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_folders_on_name", unique: true
   end
 
   create_table "items", id: :serial, force: :cascade do |t|
@@ -71,6 +81,7 @@ ActiveRecord::Schema.define(version: 20170707150126) do
     t.index ["pinnable_type", "pinnable_id"], name: "index_pins_on_pinnable_type_and_pinnable_id"
   end
 
+  add_foreign_key "docs", "folders"
   add_foreign_key "employees", "departments"
   add_foreign_key "items", "departments"
   add_foreign_key "items", "employees"
