@@ -25,50 +25,8 @@
 
 
 <div class="row mt-2 docks">
-  <% @folder.children.each do |folder| %>
-    <%= link_to admin_folder_docs_path(folder_id: folder.id) do %>
-      <div class="col-xs-12 col-sm-6 col-md-4 dock">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <%= folder.name %>
-          </div>
-          <div class="panel-body">
-            共 <%= folder.docs.size %> 個文件
-          </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-
-  <% @docs.each do |doc| %>
-    <div class="col-xs-12 col-sm-6 col-md-4 dock">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <%= doc.name %>
-          <%= link_to edit_admin_folder_doc_path(doc, folder_id: doc.folder_id), class: "btn btn-xs" do %>
-            <i class="fa fa-pencil"></i>
-          <% end %>
-          <div class="clearfix"></div>
-          <span class="pt-1" style="color: #aaa;"><%= doc.created_at.strftime("%F") %> 蔡鴻銘</span>
-        </div>
-        <div class="panel-footer">
-          <div class="row">
-            <div class="col-xs-12 text-right">
-              <%= link_to download_admin_doc_path(id: doc.id, name: doc.name.gsub(/\./, "_")), class: "btn btn-sm btn-download", target: "_blank" do %>
-                <i class="fa fa-download"></i>
-              <% end %>
-              <%= link_to preview_admin_doc_path(id: doc.id, name: doc.name.gsub(/\./, "_")), class: "btn btn-sm", target: "_blank" do %>
-                <i class="fa fa-eye"></i>
-              <% end %>
-              <%= link_to "#share", class: "btn btn-sm btn-share", data: { toggle: "modal", target: "#docShareUrl" } do %>
-                <i class="fa fa-share"></i>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "folder", collection: @folder.children, as: :folder %>
+  <%= render @docs %>
 </div>
 
-<%= render "share_modal" %>
+<%= render "doc_share_modal" %>

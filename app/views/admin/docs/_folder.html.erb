@@ -1,0 +1,12 @@
+<%= link_to admin_folder_docs_path(folder_id: folder.id) do %>
+  <div class="col-xs-12 col-sm-6 col-md-4 dock">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <%= folder.name %>
+      </div>
+      <div class="panel-body">
+        共 <%= folder.docs.size %> 個文件
+      </div>
+    </div>
+  </div>
+<% end %>
