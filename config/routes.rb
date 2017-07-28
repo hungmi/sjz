@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     end
     resources :docs do
       member do
-        get ":name/download", action: :download, as: :download
-        get ":name/preview", action: :preview, as: :preview
-        get ":name/share", action: :share, as: :share
+        get "download", action: :download, as: :download
+        get "preview", action: :preview, as: :preview
+        get "share", action: :share, as: :share
         # get "preview"
         # get "share"
         get "replace"

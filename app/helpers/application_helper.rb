@@ -7,15 +7,19 @@ module ApplicationHelper
     end
   end
 
-  def ajax_edit(namespace = nil, obj)
-    "data-toggle=modal" +
-    " data-target=#edit#{obj.class.model_name}" +
-    " data-model-id=#{obj.id}" +
-    if namespace
-      " data-url=#{send("edit_#{namespace}_#{obj.class.model_name.singular}_path", obj)}".html_safe
-    else
-      " data-url=#{send("edit_#{obj.class.model_name.singular}_path", obj)}".html_safe
+  def ajax_modal(obj, type, args)
+    args[:namespace] ||= nil
+    data_attrs = "data-toggle=modal" +
+      " data-target=#edit#{obj.class.model_name}" +
+      if args[:namespace]
+        " data-url=#{send("#{type}_#{args[:namespace]}_#{obj.class.model_name.singular}_path", obj)}".html_safe
+      else
+        " data-url=#{send("#{type}_#{obj.class.model_name.singular}_path", obj)}".html_safe
+      end
+    if obj.persisted?
+      data_attrs += " data-model-id=#{obj.id}"
     end
+    return data_attrs
   end
 
   def count_row(text)

@@ -1,4 +1,4 @@
-<tr class="clickable ajax-trigger <%= department_color(department) %>" <%= ajax_edit(:admin, department) %>>
+<tr class="clickable ajax-trigger <%= department_color(department) %>" <%= ajax_modal(department, "edit", namespace: :admin) %>>
   <td><%= department.name %></td>
-  <td><%= department.ordering %></td>
+	<td><%= department.ordering %></td>
 </tr>

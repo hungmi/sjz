@@ -38,6 +38,9 @@ zh-CN:
           upload_xml: 上传发票 xml 档
           help_xml: 如何取得发票 xml 档？
           convert_and_download: 转换并下载
+    folders:
+      new:
+        header: 新文件夹
     docs:
       index:
         header: 日常文档
@@ -62,7 +65,7 @@ zh-CN:
         header: 人员总览
       new:
         header: 新人员
-        upload: 上傳人事資料
+        upload: 上传人事资料
     departments:
       index:
         header: 部门总览
@@ -82,6 +85,9 @@ zh-CN:
       doc:
         one: 文档
         other: 所有文档
+      folder:
+        one: 文件夹
+        other: 所有文件夹
     attributes:
       item:
         image: 财产图片
@@ -110,6 +116,9 @@ zh-CN:
         description: 描述
         note: 备注
         updated_at: 上次更新
+      folder:
+        name: 文件夹名称
+        parent_id: 上级文件夹
     errors:
       messages:
         record_invalid: "验证失败: %{errors}"
@@ -121,6 +130,10 @@ zh-CN:
           attributes:
             name:
               blank: 空白
+        folder:
+          attributes:
+            name:
+              uniqueness: 123
 
   date:
     abbr_day_names:

@@ -1,0 +1,20 @@
+<div class="hidden-xs col-sm-6 mt-5 text-right ajax-trigger-container">
+  <%= link_to "#download", class: "btn btn-sm btn-download mx-1 btn-toggle hidden", data: { action_name: "download" } do %>
+    <i class="fa fa-download"></i>
+  <% end %>
+  <%= link_to "#preview", class: "btn btn-sm btn-preview mx-1 btn-toggle hidden", data: { action_name: "preview" } do %>
+    <i class="fa fa-eye"></i>
+  <% end %>
+  <%= link_to "#share", class: "btn btn-sm btn-share mx-1 mr-2 btn-toggle hidden", data: { toggle: "modal", target: "#docShareUrl" } do %>
+    <i class="fa fa-share"></i>
+  <% end %>
+  <%= link_to new_admin_folder_doc_path(folder_id: folder.id), class: "btn btn-primary" do %>
+    <i class="fa fa-upload"></i>
+    <span class="hidden-xs hidden-sm"><%= t "admin.docs.new.header" %></span>
+    <span class="hidden-md hidden-lg">上传</span>
+  <% end %>
+  <a href="#new_folder" class="btn btn-default clickable ajax-trigger" <%= ajax_modal(Folder.new, "new", namespace: :admin) %>>
+    <i class="fa fa-plus"></i>
+    <%= t "admin.folders.new.header" %>
+  </a>
+</div>

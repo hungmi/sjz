@@ -1,5 +1,6 @@
+<% if false %>
 <!-- 
-1) 基本（不啟用 ajax-edit） 的使用方式：
+1) 基本（不啟用 ajax-save） 的使用方式：
   1-1)
     trigger 給定 data: { toggle: "modal", target: "#actionModelName" }
   1-2)
@@ -9,33 +10,46 @@
       block: will be yield in $(".modal-body")
     <%# end %>
 
-2) 要啟用 ajax-edit 的使用方式：
+2) 要啟用 ajax-save 的使用方式：
   2-1)
     <html_tag class="ajax-trigger-container">
-      <html_tag class="ajax-trigger" <%#= ajax_edit(namespace, obj) %>></html_tag>
+      <html_tag class="ajax-trigger" <%#= ajax_modal(obj, type, namespace = nil) %>></html_tag>
     </html_tag>
   2-2)
-    <%#= render "common/modal", model_name: "Employee", remote: true %>
+    <%#= render "common/modal", model_name: "Employee", remote_save: true %>
   2-3)
     此外，controller#edit 跟 #update 也要設定好
-  補充：如果啟用 ajax-edit 時給予 block 的話，會被 ajax-trigger 的 data-url get 取代掉
+  補充：如果啟用 ajax-save 時給予 block 的話，會被 ajax-trigger 的 data-url get 取代掉
+
+3) 要啟用 ajax-get 的使用方式：
+  3-1)
+    <html_tag class="ajax-trigger-container">
+      <html_tag class="ajax-trigger" <%#= ajax_modal(obj, type, namespace = nil) %>></html_tag>
+    </html_tag>
+  3-2)
+    <%#= render "common/modal", model_name: "Employee", remote_get: true %>
+  3-3)
+    此外，controller#edit 跟 #update 也要設定好
+  補充：如果啟用 ajax-save 時給予 block 的話，會被 ajax-trigger 的 data-url get 取代掉
 
 補充：
   通用設定：
     title: modal 的 title
     btn: 主要按鈕的文字，可設定為 false 取消按鈕
-    remote: 是否要 ajax 送出, 預設 false
+    remote_save: 是否要 ajax 送出, 預設 false
   預設條件：
     modal 的 id = editModelName
 -->
+<% end %>
 
-<% model_name ||= "" %> <!-- 沒給 model_name 的話表示不啟用 ajax-edit，所以設成空白 -->
-<% if model_name.present? %> <!-- 承上，有啟用 ajax-edit 的話就將 modal_id 預設成 editModelName -->
+<% model_name ||= "" %> <!-- 沒給 model_name 的話表示不啟用 ajax-save，所以設成空白 -->
+<% if model_name.present? %> <!-- 承上，有啟用 ajax-save 的話就將 modal_id 預設成 editModelName -->
   <% modal_id ||= "edit#{model_name.capitalize}" %>
 <% end %>
 <% title ||= "編輯資料" %>
 <% btn ||= "儲存" unless !!btn == btn %> <!-- 如果 btn: false 的話，表示不需要按鈕，可能是把 modal 當成 info 用 -->
-<% remote ||= false %> <!-- 設成 false 把 ajax-edit 關閉 -->
+<% remote_save ||= false %> <!-- 設成 false 把 ajax-save 關閉 -->
+<% remote_get ||= false %> <!-- 設成 false 把 ajax-get 關閉 -->
 
 <div class="modal fade" id="<%= modal_id %>">
   <div class="modal-dialog" role="document">
@@ -60,7 +74,7 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
-  <% if remote %>
+  <% if remote_get %>
     $(".ajax-trigger-container").on("click", ".clickable.ajax-trigger", function(){
       $model = $(this)
       $.ajax({
@@ -79,10 +93,10 @@
   <% end %>
 
   $btn = $('<%= "##{modal_id}" %>').find("button.submit-btn")
-  $btn.on("click", function(e){
+  $(document).on("click", '<%= "##{modal_id}" %> button.submit-btn', function(e){
     if ($('<%= "##{modal_id}" %>').find("form").length > 0) {
-      <% if remote %>
-        // 啟用 ajax-edit 的話，會把目前 modal 內的 form 送出
+      <% if remote_save %>
+        // 啟用 ajax-save 的話，會把目前 modal 內的 form 送出
         // 然後接收回傳的資料 (須 render 該物件的 partial html)
         // 並根據 ajax-trigger 的 data-model-id 替換掉
         e.preventDefault()
@@ -90,20 +104,21 @@
         $.ajax({
           url: $form.attr("action"),
           method: $form.attr("method"),
-          data: $form.serialize() + "&_method=patch"
+          data: $form.serialize()
         }).done(function(data, status, xhr){
           // 這邊必須要有 model_id 這個隱藏欄位，才能知道更新了誰的資料
           // 其實也可以讓伺服器回傳該物件的 id，但這樣的話就要在 controller 寫，code 會更分散
           id = $form.find("#model_id").val()
           $("[data-model-id=" + id + "]").replaceWith(data)
           $('<%= "##{modal_id}" %>').modal("hide")
+          $(document).trigger("ajaxModalSuccess", data, status)
         }).fail(function(xhr, status, errors){
           for (error in xhr.responseJSON) {
             $form.prepend("<div class='alert alert-danger'>" + error + xhr.responseJSON[error] + "</div>")
           }
         })
       <% else %>
-        // ajax-edit 關閉的話，將把 modal 內的 form submit
+        // ajax-save 關閉的話，將把 modal 內的 form submit
         // 找不到 form 的話也就不會 submit
         $('<%= "##{modal_id}" %>').find("form").submit()
       <% end %>

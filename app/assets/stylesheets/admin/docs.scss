@@ -1,3 +1,14 @@
-tr.doc-row {
-	cursor: pointer;
+.docs.index table {
+	tr {
+		cursor: pointer;
+		&:hover {
+			background: #F3F9FF;
+		}
+		&:active, &.selected {
+			background: #D9ECFF;
+		}
+		td {
+			padding: 12px 15px;
+		}
+	}
 }

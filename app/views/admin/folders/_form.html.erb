@@ -1,0 +1,4 @@
+<%= simple_form_for [:admin, folder] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :parent_id, input_html: { value: params[:folder_id] }, as: :hidden %>
+<% end %>

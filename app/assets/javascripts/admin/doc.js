@@ -1,13 +1,30 @@
-$(document).on("click", "tr.doc-row td.clickable", function() {
-  window.open($(this).parents("tr.doc-row").data("url"), "_blank")
+$(document).on("click", "tbody.docs tr.doc", function() {
+  if ($(this).hasClass("selected")) {
+    $(this).removeClass("selected")
+    $(".btn-toggle").addClass("hidden")
+  } else {
+    $(".docs.index table tr").removeClass("selected")
+    var $doc = $(this)
+    $doc.addClass("selected")
+    // 此 url 作為基本 url 拿來替換
+    window.doc_action_url = "/admin/docs/" + $doc.data("doc-id") + "/action_name?name=" + $doc.data("doc-name")
+    $(".btn-toggle").removeClass("hidden")
+  }
+})
+$(document).on("click", "tbody.folders tr.folder", function() {
+  // 點擊資料夾會打開～
+  window.location.href = window.location.origin + "/admin/folders/" + $(this).data("folder-id") + "/docs"
+})
+$(document).on("click", ".btn-download, .btn-preview", function(e) {
+	e.preventDefault()
+  var action_name = $(this).data("action-name")
+  var action_url = window.location.origin + window.doc_action_url.replace("action_name", action_name)
+  window.open(action_url)
 })
 $(document).on("click", ".btn-share", function(e) {
-	e.preventDefault()
-  window.share_url = $(this).siblings(".btn-download").attr("href")
-})
-$(document).on("shown.bs.modal", "#docShareUrl", function () {
-	$("#share_timeout").val(600)
-	update_share_modal_data(600)
+  e.preventDefault()
+  $("#share_timeout").val(600)
+  update_share_modal_data(600)
   $("#share_url").select()
 })
 $(document).on("change", "#share_timeout", function() {
@@ -15,7 +32,7 @@ $(document).on("change", "#share_timeout", function() {
 })
 
 var update_share_modal_data = function(share_timeout) {
-	var share_url = window.location.origin + window.share_url.replace("download", "share") + "?share_timeout=" + share_timeout
+	var share_url = window.location.origin + window.doc_action_url.replace("action_name", "share") + "&share_timeout=" + share_timeout
   $("#share_url").val(share_url)
   var qr = new QRious({
     element: document.getElementById('qr'),
