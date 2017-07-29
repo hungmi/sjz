@@ -1,17 +1,29 @@
-$(document).on("click", "tbody.docs tr.doc", function() {
+$(document).on("click", "tr.doc", function() {
   if ($(this).hasClass("selected")) {
     $(this).removeClass("selected")
-    $(".btn-toggle").addClass("hidden")
+    $(".btn-toggle-doc").addClass("hidden")
+    $(".btn-toggle-folder").removeClass("hidden")
   } else {
     $(".docs.index table tr").removeClass("selected")
     var $doc = $(this)
     $doc.addClass("selected")
     // 此 url 作為基本 url 拿來替換
     window.doc_action_url = "/admin/docs/" + $doc.data("doc-id") + "/action_name?name=" + $doc.data("doc-name")
-    $(".btn-toggle").removeClass("hidden")
+    $(".btn-toggle-doc").removeClass("hidden")
+    $(".btn-toggle-folder").addClass("hidden")
   }
 })
-$(document).on("click", "tbody.folders tr.folder", function() {
+$(document).on("click", "tr.folder", function() {
+  var $folder = $(this)
+  if ($folder.hasClass("selected")) {
+  } else {
+    $(".docs.index table tr").removeClass("selected") 
+    $folder.addClass("selected")
+    $(".btn-toggle-doc").addClass("hidden")
+    $(".btn-toggle-folder").removeClass("hidden")
+  }
+})
+$(document).on("click", "tbody.folders tr.folder.selected", function() {
   // 點擊資料夾會打開～
   window.location.href = window.location.origin + "/admin/folders/" + $(this).data("folder-id") + "/docs"
 })

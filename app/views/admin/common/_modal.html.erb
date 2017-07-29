@@ -75,7 +75,7 @@
 
 <script type="text/javascript">
   <% if remote_get %>
-    $(".ajax-trigger-container").on("click", ".clickable.ajax-trigger", function(){
+    $(document).on("click", ".clickable.ajax-trigger", function(){
       $model = $(this)
       $.ajax({
         url: $model.data("url"),
@@ -94,34 +94,35 @@
 
   $btn = $('<%= "##{modal_id}" %>').find("button.submit-btn")
   $(document).on("click", '<%= "##{modal_id}" %> button.submit-btn', function(e){
-    if ($('<%= "##{modal_id}" %>').find("form").length > 0) {
-      <% if remote_save %>
-        // 啟用 ajax-save 的話，會把目前 modal 內的 form 送出
-        // 然後接收回傳的資料 (須 render 該物件的 partial html)
-        // 並根據 ajax-trigger 的 data-model-id 替換掉
-        e.preventDefault()
-        $form = $('<%= "##{modal_id}" %>').find("form")
-        $.ajax({
-          url: $form.attr("action"),
-          method: $form.attr("method"),
-          data: $form.serialize()
-        }).done(function(data, status, xhr){
-          // 這邊必須要有 model_id 這個隱藏欄位，才能知道更新了誰的資料
-          // 其實也可以讓伺服器回傳該物件的 id，但這樣的話就要在 controller 寫，code 會更分散
-          id = $form.find("#model_id").val()
-          $("[data-model-id=" + id + "]").replaceWith(data)
-          $('<%= "##{modal_id}" %>').modal("hide")
-          $(document).trigger("ajaxModalSuccess", data, status)
-        }).fail(function(xhr, status, errors){
-          for (error in xhr.responseJSON) {
-            $form.prepend("<div class='alert alert-danger'>" + error + xhr.responseJSON[error] + "</div>")
-          }
-        })
-      <% else %>
-        // ajax-save 關閉的話，將把 modal 內的 form submit
-        // 找不到 form 的話也就不會 submit
-        $('<%= "##{modal_id}" %>').find("form").submit()
-      <% end %>
-    }
+    $('<%= "##{modal_id}" %>').find("form").submit()
+  })
+  $(document).on("submit", '<%= "##{modal_id}" %> form', function(e){
+    <% if remote_save %>
+      // 啟用 ajax-save 的話，會把目前 modal 內的 form 送出
+      // 然後接收回傳的資料 (須 render 該物件的 partial html)
+      // 並根據 ajax-trigger 的 data-model-id 替換掉
+      e.preventDefault()
+      $form = $('<%= "##{modal_id}" %>').find("form")
+      $.ajax({
+        url: $form.attr("action"),
+        method: $form.attr("method"),
+        data: $form.serialize()
+      }).done(function(data, status, xhr){
+        // 這邊必須要有 model_id 這個隱藏欄位，才能知道更新了誰的資料
+        // 其實也可以讓伺服器回傳該物件的 id，但這樣的話就要在 controller 寫，code 會更分散
+        id = $form.find("#model_id").val()
+        $("[data-model-id=" + id + "]").replaceWith(data)
+        $('<%= "##{modal_id}" %>').modal("hide")
+        $(document).trigger("ajaxModalSuccess", data, status)
+      }).fail(function(xhr, status, errors){
+        for (error in xhr.responseJSON) {
+          $form.prepend("<div class='alert alert-danger'>" + error + xhr.responseJSON[error] + "</div>")
+        }
+      })
+    <% else %>
+      // ajax-save 關閉的話，將把 modal 內的 form submit
+      // 找不到 form 的話也就不會 submit
+      $(this).submit()
+    <% end %>
   })
 </script>

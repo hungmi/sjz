@@ -1,33 +1,45 @@
-<div class="row page-header">
+<div class="row">
   <div class="col-xs-12 col-sm-6">
-    <h1>
+    <h1 class="page-header">
       <%= link_to_unless (@folder.id == 1), t("admin.#{controller_name}.index.header"), admin_folder_docs_path(folder_id: 1), style: "text-decoration: none;" %>
       <br class="visible-xs-inline">
       <%= new_breadcrumb @folder %>
     </h1>
   </div>
-  <%= render "actions", folder: @folder %>
+  <div class="hidden-xs col-sm-6 mt-6 text-right">
+    <%= render "actions", folder: @folder %>
+  </div>
 </div>
 
 <div class="docks table-responsive">
-  <table class="table table-hover">
+  <table class="table table-hover <%= 'hidden' unless (@folder.children.present? || @docs.present?) %>">
     <thead>
       <tr>
-        <th>檔案名稱</th>
-        <th>修改紀錄</th>
+        <th>名称</th>
+        <th>修改纪录</th>
         <th></th>
       </tr>
     </thead>
-    <tbody class="folders">
-      <%= render partial: "admin/folders/folder", collection: @folder.children, as: :folder %>
-    </tbody>
-    <tbody class="docs" style="border-top: 1px solid #ddd;">
-      <%= render @docs %>
-    </tbody>
+      <tbody class="folders">
+        <%= render partial: "admin/folders/folder", collection: @folder.children, as: :folder %>
+      </tbody>
+      <tbody class="docs" style="border-top: 1px solid #ddd;">
+        <%= render @docs %>
+      </tbody>
   </table>
+  <% unless @folder.children.present? || @docs.present? %>
+    <div class="nothing-tip">尚未放置任何文档</div>
+  <% end %>
 </div>
 
 <%= render "doc_share_modal" %>
+
+<%= render "admin/common/modal", model_name: "Folder", title: I18n.t("admin.folders.new.header"), remote_save: true do %>
+  <% simple_form_for [:admin, Folder.find(2)] do |f| %>
+    <%= f.input :name %>
+    <%= f.input :parent_id, input_html: { value: params[:folder_id] }, as: :hidden %>
+  <% end %>
+<% end %>
 
 <%= render "admin/common/modal", model_name: "Folder", title: I18n.t("admin.folders.new.header"), remote_save: true do %>
   <% simple_form_for [:admin, Folder.new] do |f| %>
@@ -38,6 +50,8 @@
 
 <script type="text/javascript">
   $(document).on("ajaxModalSuccess", function(xhr, data) {
+    $("table.hidden").removeClass("hidden")
+    $(".nothing-tip").remove()
     $(document).find("tbody.folders").append(data)
   })
 </script>

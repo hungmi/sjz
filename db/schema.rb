@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20170722084538) do
     t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_folders_on_name", unique: true
+    t.index ["name"], name: "index_folders_on_name"
   end
 
   create_table "items", id: :serial, force: :cascade do |t|

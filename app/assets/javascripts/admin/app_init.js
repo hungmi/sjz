@@ -11,4 +11,5 @@ document.addEventListener("turbolinks:load", function(){
 	  theme: "bootstrap",
 	  language: "zh-CN"
 	});
+	$(".tooltipable").tooltip()
 })

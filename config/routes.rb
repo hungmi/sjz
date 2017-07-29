@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "admin/pages#dashboard"
+  root to: redirect('/admin')
+  get '/admin', to: 'admin/pages#dashboard'
+
   namespace :admin do
     resources :folders do
       resources :docs

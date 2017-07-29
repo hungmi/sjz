@@ -5,7 +5,7 @@
   margin-left: auto;
 }
 
-$levels: 5;
+$levels: 6;
 @mixin spacing-list {
   @for $i from 1 through $levels {
     .mr-#{$i} { margin-right: calc( 5px * #{$i} ); }
@@ -33,12 +33,12 @@ $levels: 5;
 .page-header {
 	margin-top: 30px;
 	margin-bottom: 15px;
-  .path-name { font-size: 24px; }
+  .path-name { font-size: 22px; }
 	@media only screen and (max-width: 414px) {
     margin-top: 0px;
     margin-bottom: 0px;
     h1 { font-size: 28px; }
-    .path-name { font-size: 20px; }
+    .path-name { font-size: 18px; }
 	}
 }
 

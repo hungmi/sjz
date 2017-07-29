@@ -3,7 +3,7 @@ class Folder < ApplicationRecord
 	belongs_to :parent, class_name: "Folder", required: false
 	has_many :children, class_name: "Folder", foreign_key: "parent_id"
 
-	validates :name, presence: true, uniqueness: true
+	validates :name, presence: true
 
 	# def breadcrumb
 	# 	routes = Rails.application.routes.url_helpers

@@ -9,7 +9,6 @@ class Admin::FoldersController < AdminController
     if @folder.save
       render partial: @folder
     else
-    	p "renders"
       render json: @folder.errors, status: :unprocessable_entity
     end
   end

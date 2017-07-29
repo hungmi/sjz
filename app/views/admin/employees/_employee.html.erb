@@ -1,7 +1,7 @@
 <tr class="clickable ajax-trigger <%= department_color(employee.department) %>" <%= ajax_modal(employee, "edit", namespace: :admin) %>>
-  <td><%= employee.department.name %></td>
-  <td><%= employee.title %></td>
   <td><%= employee.name %></td>
+  <td><%= employee.title %></td>
+  <td><%= employee.department.name %></td>
   <td><%= employee.mobile_phone %></td>
   <td><%= employee.tel %></td>
   <td><%= employee.ext %></td>

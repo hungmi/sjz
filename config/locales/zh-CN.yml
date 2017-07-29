@@ -7,6 +7,13 @@ zh-CN:
       download: 下载
       preview: 预览
       share: 分享
+  tooltips:
+    docs:
+      download: 下载选中的文档
+      preview: 预览选中的文档
+      share: 生成分享链结
+    folders:
+      new: 文件夹可协助分类
   daily:
     name: 日常
     menu:
@@ -110,7 +117,7 @@ zh-CN:
         ordering: 显示顺序
       doc:
         name: 文档名称
-        folder: 文件夹
+        folder: 位置
         iso: "此为 ISO 文件"
         code: 版本号
         description: 描述
