@@ -31,7 +31,7 @@ zh-CN:
     menu:
       asset_management: 财产管理
       contacts: 通讯录
-      iso: "ISO 文件"
+      docs: 文档管理
   marketing:
     name: 市场营销部
     menu:
@@ -58,7 +58,7 @@ zh-CN:
         header: 删除文件夹
     docs:
       index:
-        header: 日常文档
+        header: 文档总览
       new:
         header: 上传文档
       edit:

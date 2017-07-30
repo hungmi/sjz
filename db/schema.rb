@@ -27,8 +27,6 @@ ActiveRecord::Schema.define(version: 20170722084538) do
     t.string "code"
     t.text "description"
     t.text "note"
-    t.boolean "public"
-    t.boolean "iso", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "oss_key"
@@ -70,15 +68,6 @@ ActiveRecord::Schema.define(version: 20170722084538) do
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_items_on_department_id"
     t.index ["employee_id"], name: "index_items_on_employee_id"
-  end
-
-  create_table "pins", force: :cascade do |t|
-    t.string "file"
-    t.string "pinnable_type"
-    t.bigint "pinnable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["pinnable_type", "pinnable_id"], name: "index_pins_on_pinnable_type_and_pinnable_id"
   end
 
   add_foreign_key "docs", "folders"

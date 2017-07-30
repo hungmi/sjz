@@ -5,8 +5,6 @@ class CreateDocs < ActiveRecord::Migration[5.1]
       t.string :code
       t.text :description
       t.text :note
-      t.boolean :public
-      t.boolean :iso, default: false
 
       t.timestamps
     end

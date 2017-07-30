@@ -38,6 +38,8 @@
 <script type="text/javascript">
   $(document).on("newFolderSuccess", function(xhr, data) {
     $("tbody.folders").append(data)
+    $("table.hidden").removeClass("hidden")
+    $("div.nothing-tip").remove()
   })
 </script>
 

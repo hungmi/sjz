@@ -18,10 +18,6 @@ class Doc < ApplicationRecord
     end
 	end
 
-	def public?
-		self.public
-	end
-
 	def generate_oss_name
 		file_ext = self.name[/\.[0-9a-z]+$/i]
 		if file_ext.present?

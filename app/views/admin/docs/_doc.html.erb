@@ -1,5 +1,12 @@
 <tr class="doc" data-doc-id="<%= doc.id %>" data-doc-name="<%= doc.name %>" data-folder-id="<%= doc.folder_id %>">
-	<td><%= doc.name %></td>
-	<td><%= doc.updated_at.strftime("%F %T") %></td>
-	<td></td>
+	<td style="min-width: 120px;"><%= doc.name %></td>
+	<td style="min-width: 120px;"><%= doc.updated_at.strftime("%F %T") %></td>
+	<td>
+		<% if doc.description.present? %>
+			<%= simple_format "描述：#{doc.description}" %><br>
+		<% end %>
+		<% if doc.note.present? %>
+			<%= simple_format "备注：#{doc.note}" %>
+		<% end %>
+	</td>
 </tr>

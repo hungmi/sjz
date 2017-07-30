@@ -8,6 +8,11 @@ $brand-primary: dodgerblue;
 $semi-primary-color: darken(dodgerblue, 5%);
 $brand-success: #5cd85c;
 
+// alert-success
+$state-success-text: #f5f5f5;
+$state-success-bg: hsla(210, 100%, 70%, 1);
+$state-success-border: darken(adjust-hue($state-success-bg, -10), 5%);
+
 $spacer:   1rem !default;
 $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;

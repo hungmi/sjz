@@ -14,19 +14,6 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <%= t "daily.name" %> <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <%= link_to admin_docs_path do %>
-                <i class="fa fa-paperclip"></i>
-                <%= t "daily.menu.index" %>
-              <% end %>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             財務部 <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
@@ -38,7 +25,7 @@
             </li>
           </ul>
         </li>
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             銷售部 <span class="caret"></span>
           </a>
@@ -46,7 +33,7 @@
             <li><a href="/admin/products"><i class="fa fa-list-alt fa-fw"></i> 客戶總覽</a></li>
             <li><a href="/admin/products"><i class="fa fa-truck fa-fw"></i> 報價申請</a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             行政部 <span class="caret"></span>
@@ -54,7 +41,8 @@
           <ul class="dropdown-menu">
             <li>
               <%= link_to admin_docs_path do %>
-                <i class="fa fa-paperclip"></i> ISO 文件
+                <i class="fa fa-paperclip"></i>
+                <%= t "administration.menu.docs" %>
               <% end %>
             </li>
             <li>
@@ -71,7 +59,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             工作管理 <span class="caret"></span>
           </a>
@@ -79,8 +67,8 @@
             <li><a href="/admin/products"><i class="fa fa-tasks fa-fw"></i> 日常工作</a></li>
             <li><a href="/admin/products"><i class="fa fa-calendar-check-o fa-fw"></i> 年曆</a></li>
           </ul>
-        </li>
-        <li class="dropdown">
+        </li> -->
+        <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             鴻銘 <span class="caret"></span>
           </a>
@@ -91,22 +79,14 @@
             <li class="divider"></li>
             <li><a href="#"><i class="fa fa-question-circle-o"></i> 帳號有問題？</a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <i class="fa fa-search fa-fw"></i>
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu" role="menu">
-            <li class="dropdown-search-wrapper">
-              <form class="form-inline" role="search" style="padding: 15px 20px 15px 20px;">
-                <div class="form-group">
-                  <input type="text" class="form-control search-form-input" placeholder="人員、文檔">
-                </div>
-                <button type="submit" class="btn btn-primary">搜尋</button>
-              </form>
-            </li>
-          </ul>
+          <form class="navbar-form" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control search-form-input" placeholder="人员、文档">
+            </div>
+            <button type="submit" class="btn btn-primary">搜尋</button>
+          </form>
         </li>
       </ul>
     </div>
