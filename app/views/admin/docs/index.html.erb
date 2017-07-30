@@ -20,12 +20,12 @@
         <th></th>
       </tr>
     </thead>
-      <tbody class="folders">
-        <%= render partial: "admin/folders/folder", collection: @folders.order(id: :asc), as: :folder %>
-      </tbody>
-      <tbody class="docs" style="border-top: 1px solid #ddd;">
-        <%= render @docs %>
-      </tbody>
+    <tbody class="folders">
+      <%= render partial: "admin/folders/folder", collection: @folders.order(id: :asc), as: :folder %>
+    </tbody>
+    <tbody class="docs" style="border-top: 1px solid #ddd;">
+      <%= render @docs %>
+    </tbody>
   </table>
   <% unless @folders.present? || @docs.present? %>
     <div class="nothing-tip">尚未放置任何文档</div>

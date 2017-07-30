@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin/pages#dashboard'
 
   namespace :admin do
+    get "search", to: "search#index"
     resources :folders do
       resources :docs
     end

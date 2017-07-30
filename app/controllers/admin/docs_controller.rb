@@ -33,6 +33,7 @@ class Admin::DocsController < AdminController
   end
 
   def index
+    @q = Doc.ransack params[:q]
     if params[:folder_id].present?
       @folder = Folder.find(params[:folder_id])
       @folders = @folder.children

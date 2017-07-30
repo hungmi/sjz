@@ -1,6 +1,6 @@
 @import "admin/variables";
 
-.items, .employee_items, .department_items {
+.items, .employee_items, .department_items, .search.index {
   .form-control-file {
     padding: 4px 4px;
     cursor: pointer;
@@ -12,9 +12,6 @@
     }
   }
   .item {
-    img {
-      width: 100%;
-    }
     .content {
       hr {
         border-color: #999;

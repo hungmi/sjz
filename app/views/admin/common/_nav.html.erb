@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/admin"><span class="mr-1"><%= image_tag "logo_white.svg", height: "20px", style: "vertical-align: text-top;" %></span><span class="visible-inline-xs"><%= t "company" %></span></a>
+      <a class="navbar-brand" href="/admin"><span class="mr-1"><%#= image_tag "logo_white.svg", height: "20px", style: "vertical-align: text-top;" %></span><span class="visible-inline-xs"><%= t "company" %></span></a>
     </div>
 
     <div class="collapse navbar-collapse" id="admin-navbar-collapse">
@@ -81,12 +81,12 @@
           </ul>
         </li> -->
         <li class="dropdown">
-          <form class="navbar-form" role="search">
+          <%= form_tag admin_search_path, class: "navbar-form", role: "search", method: :get do |f| %>
             <div class="form-group">
-              <input type="text" class="form-control search-form-input" placeholder="人员、文档">
+              <%= text_field_tag :q, nil, placeholder: "文档、人员、财产", class: "form-control search-form-input" %>
             </div>
-            <button type="submit" class="btn btn-primary">搜尋</button>
-          </form>
+            <%= submit_tag "搜寻", class: "btn btn-primary" %>
+          <% end %>
         </li>
       </ul>
     </div>

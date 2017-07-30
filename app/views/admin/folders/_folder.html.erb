@@ -1,4 +1,4 @@
-<tr class="folder" data-folder-id="<%= folder.id %>">
+<tr class="clickable folder" data-folder-id="<%= folder.id %>">
   <td><i class="fa fa-folder-o"></i> <%= folder.name %></td>
   <td><%= folder.updated_at.strftime("%F %T") %></td>
   <td><%= folder.children.size %> 個文件夾，<%= folder.docs.size %> 個檔案</td>

@@ -18,7 +18,7 @@ class Admin::ItemsController < AdminController
     @item = Item.new(item_params)
     if @item.save
       flash[:success] = "建立成功"
-      redirect_to items_path
+      redirect_to admin_items_path
     else
       render :new
     end
@@ -27,7 +27,7 @@ class Admin::ItemsController < AdminController
   def upload
     Item.import_items(params[:item_file])
     flash[:success] = "匯入成功"
-    redirect_to items_path
+    redirect_to admin_items_path
   end
 
   def show
@@ -40,7 +40,7 @@ class Admin::ItemsController < AdminController
   def update
     if @item.update(item_params)
       flash[:success] = "更新成功"
-      redirect_to items_path
+      redirect_to admin_items_path
     else
       render :edit
     end
