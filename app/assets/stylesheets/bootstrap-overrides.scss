@@ -54,3 +54,10 @@ $levels: 6;
 .form-control-file {
   max-width: 100%;
 }
+
+.alert {
+  z-index: 999;
+  position: absolute;
+  right: 30px;
+  bottom: 0px;
+}

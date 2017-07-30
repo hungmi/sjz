@@ -7,10 +7,14 @@ module ApplicationHelper
     end
   end
 
+  def new_ajax_modal(modal_id, url)
+    "data-toggle=modal" + " data-target=##{modal_id}" + " data-url=#{url}"
+  end
+
   def ajax_modal(obj, type, args)
     args[:namespace] ||= nil
     data_attrs = "data-toggle=modal" +
-      " data-target=#edit#{obj.class.model_name}" +
+      " data-target=##{type}#{obj.class.model_name}" +
       if args[:namespace]
         " data-url=#{send("#{type}_#{args[:namespace]}_#{obj.class.model_name.singular}_path", obj)}".html_safe
       else

@@ -1,6 +1,6 @@
 class Admin::DocsController < AdminController
   before_action :find_doc, only: [:share, :preview, :download, :show, :edit, :update, :destroy]
-  before_action :find_folder, only: [:index, :new, :create, :edit, :update]
+  before_action :find_folder, only: [:new, :create, :edit, :update]
 
   def share
     url = @doc.download_url params[:share_timeout]
@@ -33,7 +33,14 @@ class Admin::DocsController < AdminController
   end
 
   def index
-    @docs = @folder.docs.order(updated_at: :desc, name: :asc).ransack(params[:q]).result
+    if params[:folder_id].present?
+      @folder = Folder.find(params[:folder_id])
+      @folders = @folder.children
+      @docs = @folder.docs.order(id: :asc, name: :asc).ransack(params[:q]).result
+    else
+      @folders = Folder.where(parent_id: nil)
+      @docs = Doc.where(folder_id: nil).order(id: :asc, name: :asc).ransack(params[:q]).result
+    end
   end
 
   def new
@@ -57,6 +64,9 @@ class Admin::DocsController < AdminController
   end
 
   def edit
+    @folder = @doc.folder
+    # @doc = Doc.find(params[:id])
+    # render partial: "admin/docs/form", locals: { doc: @doc } 
   end
 
   def update
@@ -64,23 +74,19 @@ class Admin::DocsController < AdminController
       flash[:success] = "更新成功"
       redirect_to @doc.index_url
     else
-      render :edit
+      render json: @doc.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @doc.destroy(doc_params)
-      flash[:success] = "刪除成功"
-    else
-      flash[:danger] = "刪除失敗"
-    end
+    @doc.destroy
     redirect_back fallback_location: @doc.index_url
   end
 
   private
 
     def find_folder
-      @folder = Folder.find(params[:folder_id])
+      @folder = Folder.find_by_id(params[:folder_id])
     end
 
     def find_doc

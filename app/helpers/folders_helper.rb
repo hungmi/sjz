@@ -15,12 +15,14 @@ module FoldersHelper
 	end
 
 	def new_breadcrumb folder, options = {}
-		if folder.id != 1
+		if params[:folder_id].present?
 			active_folder = options[:link_to_active] ? folder.breadcrumb : folder.name
 			path = []
-			while folder.parent.present? do
+			level_limit = 50
+			while folder.parent.present? && (level_limit > 0) do
 				folder = folder.parent
-				path << folder.name unless folder.id == 1
+				path << folder.name
+				level_limit -= 1
 			end
 			divider = "<span style='font-size: 16px;'>/</span>"
 			breadcrumb = "<span class='path-name'>#{divider} "

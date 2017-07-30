@@ -1,0 +1,76 @@
+<%# render_static_info_or_form? = true if yield.present? %>
+<%# render_from_controller? = yield.blank? %>
+<!-- modal_id 是唯一必須的變數 -->
+<!-- 其餘底下都是可選變數 -->
+<% title ||= nil %>
+<% submit_btn ||= "儲存" %>
+<% close ||= "關閉" %>
+<div class="modal fade" id="<%= modal_id %>">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><%= title %></h4>
+      </div>
+      <div class="modal-body">
+        <%= yield %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= close  %></button>
+        <% if submit_btn.present? %>
+          <button type="button" class="btn btn-primary submit-btn"><%= submit_btn %></button>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<% if yield.blank? %> <!-- 如果是從 controller 拉資料的話 -->
+  <script type="text/javascript">
+    var trigger_name = ".ajax-trigger[data-target='#" + "<%= modal_id %>" + "']"
+    $(document).on("click", trigger_name, function(){
+      var $trigger = $(this)
+      $.ajax({
+        url: $trigger.data("url"),
+        method: "get",
+      }).done(function(data, status, xhr) {
+        window.data = data
+        window.status = status
+        window.xhr = xhr
+        var $modal = $('<%= "##{modal_id}" %>')
+        $modal.find(".modal-body").html(data)
+        var $form = $modal.find("form")
+        // $form.append('<input type="hidden" name="model_id" id="model_id" value="' + $model.data('model-id') + '">')
+      })
+    })
+  </script>
+<% end %>
+<script type="text/javascript">
+  <% if submit_btn.present? %>
+    $(document).on("click", '<%= "##{modal_id}" %> button.submit-btn', function(){
+      $('<%= "##{modal_id}" %>').find("form").submit()
+    })
+  <% end %>
+  $(document).on("submit", '<%= "##{modal_id}" %> form', function(e){
+    e.preventDefault()
+    <% if submit_btn.present? %>
+      var $form = $('<%= "##{modal_id}" %>').find("form")
+      $.ajax({
+        url: $form.attr("action"),
+        method: $form.attr("method"),
+        data: $form.serialize()
+      }).done(function(data, status, xhr){
+        $('<%= "##{modal_id}" %>').modal("hide")
+        // 成功之後會觸發一個事件，例如 editOrder 的 modal 就會觸發 editOrderSuccess
+        $(document).trigger('<%= "#{modal_id}Success" %>', data, status)
+      }).fail(function(xhr, status, errors){
+        for (error in xhr.responseJSON) {
+          $form.prepend("<div class='alert alert-danger'>" + error + xhr.responseJSON[error] + "</div>")
+        }
+        // 失敗也會觸發一個事件，例如 editOrder 的 modal 就會觸發 editOrderFail
+        $(document).trigger('<%= "#{modal_id}Fail" %>', status, errors)
+      })
+    <% end %>
+  })
+</script>

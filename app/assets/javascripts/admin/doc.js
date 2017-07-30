@@ -9,6 +9,9 @@ $(document).on("click", "tr.doc", function() {
     $doc.addClass("selected")
     // 此 url 作為基本 url 拿來替換
     window.doc_action_url = "/admin/docs/" + $doc.data("doc-id") + "/action_name?name=" + $doc.data("doc-name")
+
+    $("#editDocBtn").attr("href", "/admin/docs/" + $doc.data("doc-id") + "/edit?folder_id=" + $doc.data("folder-id"))
+    $("#destroyDocBtn").attr("href", "/admin/docs/" + $doc.data("doc-id"))
     $(".btn-toggle-doc").removeClass("hidden")
     $(".btn-toggle-folder").addClass("hidden")
   }
@@ -19,13 +22,18 @@ $(document).on("click", "tr.folder", function() {
   } else {
     $(".docs.index table tr").removeClass("selected") 
     $folder.addClass("selected")
+    
+    // 為了讓每次點同一個編輯按鈕能拉到對應的 form
+    $("#editFolderBtn").data("url", "/admin/folders/" + $folder.data("folder-id") + "/edit")
+    $("#destroyFolderBtn").attr("href", "/admin/folders/" + $folder.data("folder-id"))
+
     $(".btn-toggle-doc").addClass("hidden")
     $(".btn-toggle-folder").removeClass("hidden")
   }
 })
 $(document).on("click", "tbody.folders tr.folder.selected", function() {
   // 點擊資料夾會打開～
-  window.location.href = window.location.origin + "/admin/folders/" + $(this).data("folder-id") + "/docs"
+  window.location.href = window.location.origin + "/admin" + "/docs?folder_id=" + $(this).data("folder-id")
 })
 $(document).on("click", ".btn-download, .btn-preview", function(e) {
 	e.preventDefault()
@@ -56,3 +64,14 @@ var update_share_modal_data = function(share_timeout) {
   var img = $(canvas)[0].toDataURL("image/png");
   $("#qr-img").attr("src", img);
 }
+
+$(document).on("change", "#docSharePermanent input", function() {
+  if (this.checked) {
+    $("#share_timeout").prop("disabled", true)
+    update_share_modal_data("")
+    $("#share_url").val($("#share_url").val().replace("&share_timeout=", ""))
+  } else {
+    $("#share_timeout").prop("disabled", false)
+    update_share_modal_data($("#share_timeout").val())
+  }
+})

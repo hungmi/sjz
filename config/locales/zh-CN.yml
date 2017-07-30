@@ -12,8 +12,12 @@ zh-CN:
       download: 下载选中的文档
       preview: 预览选中的文档
       share: 生成分享链结
+      edit: 编辑名称
+      destroy: 删除选中的文档
     folders:
       new: 文件夹可协助分类
+      edit: 编辑名称
+      destroy: 删除选中的文件夹
   daily:
     name: 日常
     menu:
@@ -48,6 +52,10 @@ zh-CN:
     folders:
       new:
         header: 新文件夹
+      edit:
+        header: 编辑文件夹
+      destroy:
+        header: 删除文件夹
     docs:
       index:
         header: 日常文档
@@ -58,7 +66,7 @@ zh-CN:
       form:
         code_hint: 请参考质量手册正确定义版本号，再进行建立。
         replace: 上传新版本
-        replace_hint: 要更改版本号，请上传新版本。
+        replace_hint: 版本号一旦建立便无法更改。
     iso_docs:
       index:
         header: ISO 文档总览

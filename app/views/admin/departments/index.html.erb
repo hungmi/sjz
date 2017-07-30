@@ -21,10 +21,10 @@
       <th style="min-width: 120px;">名稱</th>
       <th style="min-width: 110px;">顯示順序</th>
     </thead>
-    <tbody class="ajax-trigger-container">
+    <tbody>
       <%= render @departments %>
     </tbody>
   </table>
 </div>
 
-<%= render "admin/common/modal", model_name: "Department", remote_get: true, remote_save: true %>
+<%= render "admin/common/modal", model_name: "Department", remote_get: true %>
