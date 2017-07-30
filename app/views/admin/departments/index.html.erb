@@ -1,25 +1,30 @@
-<h1 class="page-header">
-  <%= t ".header" %>
-  <br class="hidden-md hidden-lg">
-  <%= link_to admin_employees_path, class: "btn btn-link pb-0" do %>
-    <i class="fa fa-users"></i>
-    <%= t "admin.employees.index.header" %>
-  <% end %>
-  <%= link_to new_admin_department_path, class: "btn btn-primary pull-right icon-btn" do %>
-    <i class="fa fa-plus"></i>
-    <%= t "admin.departments.new.header" %>
-  <% end %>
-  <%= link_to admin_departments_path(format: :xls), class: "btn btn-success pull-right mr-1" do %>
-    <i class="fa fa-arrow-circle-down"></i>
-    <%= t "admin.export_csv" %>
-  <% end %>
-</h1>
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <h1 class="page-header">
+      <%= t ".header" %>
+      <br class="hidden-md hidden-lg">
+      <%= link_to admin_employees_path, class: "btn btn-link pb-0" do %>
+        <i class="fa fa-users"></i>
+        <%= t "admin.employees.index.header" %>
+      <% end %>
+    </h1>
+  </div>
+  <div class="col-sm-6 mt-5 text-right mt-6">
+    <%= link_to new_admin_department_path, class: "btn btn-primary icon-btn" do %>
+      <i class="fa fa-plus"></i>
+      <%= t "admin.departments.new.header" %>
+    <% end %>
+    <%= link_to admin_departments_path(format: :xls), class: "btn btn-success mr-1" do %>
+      <i class="fa fa-arrow-circle-down"></i>
+      <%= t "admin.export_csv" %>
+    <% end %>
+  </div>
+</div>
 
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="thead-default">
-      <th style="min-width: 120px;">名稱</th>
-      <th style="min-width: 110px;">顯示順序</th>
+      <th style="min-width: 120px;">名称</th>
     </thead>
     <tbody>
       <%= render @departments %>
