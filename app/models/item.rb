@@ -1,8 +1,6 @@
 class Item < ApplicationRecord
   mount_uploader :image, ItemImageUploader
   include ItemsImporter
-  # include Tokenable
-  include Rails.application.routes.url_helpers
 
   validates :name, presence: true
 

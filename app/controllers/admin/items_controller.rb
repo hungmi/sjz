@@ -26,7 +26,7 @@ class Admin::ItemsController < AdminController
 
   def upload
     Item.import_items(params[:item_file])
-    flash[:success] = "匯入成功"
+    flash[:success] = "汇入成功"
     redirect_to admin_items_path
   end
 

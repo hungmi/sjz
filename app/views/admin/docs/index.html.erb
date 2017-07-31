@@ -35,7 +35,7 @@
 <%= render "admin/common/new_modal", modal_id: "newFolder", title: I18n.t("admin.folders.new.header"), submit_btn: "建立" do %>
   <% render "admin/folders/form", folder: Folder.new %>
 <% end %>
-<script type="text/javascript">
+<script type="text/javascript" data-turbolinks-eval="false">
   $(document).on("newFolderSuccess", function(xhr, data) {
     $("tbody.folders").append(data)
     $("table.hidden").removeClass("hidden")
@@ -44,14 +44,14 @@
 </script>
 
 <%= render "admin/common/new_modal", modal_id: "editFolder", title: I18n.t("admin.folders.edit.header"), submit_btn: "儲存" %>
-<script type="text/javascript">
+<script type="text/javascript" data-turbolinks-eval="false">
   $(document).on("editFolderSuccess", function(xhr, data) {
     $("tr.folder.selected").replaceWith(data)
   })
 </script>
 
 <!-- 以下為刪除文件夾的回調 -->
-<script type="text/javascript">
+<script type="text/javascript" data-turbolinks-eval="false">
   $(document).on("ajax:success", function(e) {
     if (e.target.id == "destroyFolderBtn") {
       $("tr.folder.selected").remove()

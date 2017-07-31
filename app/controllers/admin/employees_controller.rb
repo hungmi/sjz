@@ -16,9 +16,13 @@ class Admin::EmployeesController < AdminController
   end
 
   def create
-    @employee = Employee.create(employee_params)
-    flash[:success] = "建立成功"
-    redirect_to admin_employees_path
+    @employee = Employee.new(employee_params)
+    if @employee.save
+      flash[:success] = "建立成功"
+      redirect_to admin_employees_path
+    else
+      render :new
+    end
   end
 
   def edit

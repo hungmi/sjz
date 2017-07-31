@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         get "share", action: :share, as: :share
       end
     end
-    resources :items do
+    resources :items, except: [:show] do
       collection do
         post "upload"
         get "list"

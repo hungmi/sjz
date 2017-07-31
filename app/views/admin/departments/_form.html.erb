@@ -12,7 +12,7 @@
       <%= f.text_field :ordering, class: "form-control" %>
     </div>
   </div>
-  <% if action_name == "new" %>
+  <% if department.new_record? %>
     <%= f.submit class: "btn btn-primary btn-block" %>
   <% end %>
 <% end %>

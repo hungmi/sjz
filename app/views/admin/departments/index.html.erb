@@ -2,7 +2,7 @@
   <div class="col-xs-12 col-sm-6">
     <h1 class="page-header">
       <%= t ".header" %>
-      <br class="hidden-md hidden-lg">
+      <br class="hidden-sm hidden-md hidden-lg">
       <%= link_to admin_employees_path, class: "btn btn-link pb-0" do %>
         <i class="fa fa-users"></i>
         <%= t "admin.employees.index.header" %>
@@ -25,6 +25,7 @@
   <table class="table table-hover">
     <thead class="thead-default">
       <th style="min-width: 120px;">名称</th>
+      <th>人数</th>
     </thead>
     <tbody>
       <%= render @departments %>

@@ -2,26 +2,30 @@
   <div class="col-md-4">
     <div class="img-wrapper">
       <%#= image_tag "http://cms-bucket.nosdn.127.net/catchpic/b/b0/b073d08314a480c6b19454a8d4612107.jpg?imageView&thumbnail=550x0" %>
-      <%= image_tag item.image.url, class: "img-responsive" %>
+      <%= link_to edit_admin_item_path(item) do %>
+        <%= image_tag item.image.small.url, class: "img-responsive" %>
+      <% end %>
     </div>
   </div>
   <div class="content printable col-md-8">
     <div class="title">
-      <%= item.name %>
-      <div class="actions dropdown pull-right">
+      <%= link_to edit_admin_item_path(item) do %>
+        <%= item.name %>
+      <% end %>
+      <!-- <div class="actions dropdown pull-right">
         <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           更多
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li><%= link_to "修改資料", edit_admin_item_path(item), class: "dropdown-item" %></li>
-          <!-- <li><%#= link_to "申請使用", edit_admin_item_path(item), class: "dropdown-item" %></li>
+          <li><%#= link_to "修改資料", edit_admin_item_path(item), class: "dropdown-item" %></li>
+          <li><%#= link_to "申請使用", edit_admin_item_path(item), class: "dropdown-item" %></li>
           <li><%#= link_to "所在位置", edit_admin_item_path(item), class: "dropdown-item" %></li>
           <li><%#= link_to "盤點紀錄", edit_admin_item_path(item), class: "dropdown-item" %></li>
           <li role="separator" class="divider"></li>
-          <li><%#= link_to "列印標籤", edit_admin_item_path(item), class: "dropdown-item" %></li> -->
+          <li><%#= link_to "列印標籤", edit_admin_item_path(item), class: "dropdown-item" %></li>
         </ul>
-      </div>
+      </div> -->
     </div>    
     <div class="row properties">
       <div class="col-lg-6">
