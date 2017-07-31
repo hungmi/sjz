@@ -62,6 +62,7 @@ class Admin::DocsController < AdminController
   end
 
   def show
+    render :edit
   end
 
   def edit
@@ -75,7 +76,7 @@ class Admin::DocsController < AdminController
       flash[:success] = "更新成功"
       redirect_to @doc.index_url
     else
-      render json: @doc.errors, status: :unprocessable_entity
+      render :edit
     end
   end
 

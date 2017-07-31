@@ -2,11 +2,10 @@ class Doc < ApplicationRecord
 	validates :name, presence: { message: :blank }
 	validates :code, uniqueness: true, allow_nil: true, allow_blank: true
 
-	before_create :nilify_empty_values
+	before_save :nilify_empty_values
 	before_destroy :delete_oss_file
 
 	belongs_to :folder, required: false
-	has_many :pins, :as => :pinnable, dependent: :destroy
 
 	def delete_oss_file
 		OssService.new.delete(self.oss_key)
