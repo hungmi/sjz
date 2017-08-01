@@ -1,10 +1,10 @@
-<%= link_to admin_folder_path(id: 99999), class: "btn btn-sm clickable mx-1 btn-toggle-folder hidden tooltipable", id:"destroyFolderBtn", data: { placement: "bottom", confirm: "确定要删除文件夹吗？" }, title: t("tooltips.folders.destroy"), remote: true, method: :delete do %>
+<%= link_to admin_folder_path(id: 99999), class: "btn text-danger btn-sm clickable mx-1 btn-toggle-folder hidden tooltipable", id:"destroyFolderBtn", data: { placement: "bottom", confirm: "删除文件夹，将会一并删除所有其内部文件夹以及文件，确定要删除吗？" }, title: t("tooltips.folders.destroy"), remote: true, method: :delete do %>
   <i class="glyphicon glyphicon-trash"></i>
 <% end %>
 <a href="#editFolder" class="btn btn-sm clickable ajax-trigger mx-1 btn-toggle-folder hidden tooltipable" id="editFolderBtn" data-placement="bottom" title='<%= t("tooltips.folders.edit") %>' <%= new_ajax_modal("editFolder", edit_admin_folder_path(id: 99999)) %>>
   <i class="fa fa-edit"></i>
 </a>
-<%= link_to admin_doc_path(id: 99999), class: "btn btn-sm clickable mx-1 btn-toggle-doc hidden tooltipable", id:"destroyDocBtn", data: { placement: "bottom", confirm: "确定要删除文档吗？" }, title: t("tooltips.docs.destroy"), remote: true, method: :delete do %>
+<%= link_to admin_doc_path(id: 99999), class: "btn btn-sm text-danger clickable mx-1 btn-toggle-doc hidden tooltipable", id:"destroyDocBtn", data: { placement: "bottom", confirm: "确定要删除文档吗？" }, title: t("tooltips.docs.destroy"), remote: true, method: :delete do %>
   <i class="glyphicon glyphicon-trash"></i>
 <% end %>
 <%= link_to edit_admin_doc_path(id: 99999), class: "btn btn-sm clickable mx-1 btn-toggle-doc hidden tooltipable", id: "editDocBtn", data: { placement: "bottom" }, title: t("tooltips.docs.edit") do %>

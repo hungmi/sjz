@@ -27,7 +27,7 @@
       <div class="form-group row">
         <%= f.label :code, class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">
-          <%= f.text_field :code, class: "form-control", disabled: (@doc.code.present?) %>
+          <%= f.text_field :code, class: "form-control", disabled: (@doc.errors[:code].blank? && @doc.code.present?) %>
         </div>
         <div class="col-xs-12">
       		<p class="help-block">

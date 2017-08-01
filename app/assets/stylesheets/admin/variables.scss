@@ -13,7 +13,11 @@ $state-success-text: #f5f5f5;
 $state-success-bg: hsla(210, 100%, 70%, 1);
 $state-success-border: darken(adjust-hue($state-success-bg, -10), 5%);
 
-$spacer:   1rem !default;
+$state-danger-text: hsla(1, 84%, 60%, 1);
+$state-danger-bg: hsla(0, 100%, 93%, 1);
+$state-danger-border: darken(adjust-hue($state-danger-bg, -10), 5%);
+
+$spacer: 1rem !default;
 $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;
 

@@ -1,5 +1,5 @@
 class Doc < ApplicationRecord
-	validates :name, presence: { message: :blank }
+	validates :name, presence: true
 	validates :code, uniqueness: true, allow_nil: true, allow_blank: true
 
 	before_save :nilify_empty_values

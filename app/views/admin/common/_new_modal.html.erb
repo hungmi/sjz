@@ -63,8 +63,9 @@
         // 成功之後會觸發一個事件，例如 editOrder 的 modal 就會觸發 editOrderSuccess
         $(document).trigger('<%= "#{modal_id}Success" %>', data, status)
       }).fail(function(xhr, status, errors){
+        window.xhr = xhr
         for (error in xhr.responseJSON) {
-          $form.prepend("<div class='alert alert-danger'>" + error + xhr.responseJSON[error] + "</div>")
+          $form.prepend("<div class='alert alert-danger'>" + xhr.responseJSON[error] + "</div>")
         }
         // 失敗也會觸發一個事件，例如 editOrder 的 modal 就會觸發 editOrderFail
         $(document).trigger('<%= "#{modal_id}Fail" %>', status, errors)

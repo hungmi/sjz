@@ -38,7 +38,7 @@ class Admin::EmployeesController < AdminController
     if @employee.update(employee_params)
       render partial: @employee
     else
-      render json: @employee.errors, status: :unprocessable_entity
+      render json: @employee.errors.full_messages, status: :unprocessable_entity
     end
   end
 

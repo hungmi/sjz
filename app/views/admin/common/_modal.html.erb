@@ -117,7 +117,7 @@
         $(document).trigger("ajaxModalSuccess", data, status)
       }).fail(function(xhr, status, errors){
         for (error in xhr.responseJSON) {
-          $form.prepend("<div class='alert alert-danger'>" + error + xhr.responseJSON[error] + "</div>")
+          $form.prepend("<div class='alert alert-danger'>" + xhr.responseJSON[error] + "</div>")
         }
       })
     <% else %>

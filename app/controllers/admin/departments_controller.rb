@@ -27,7 +27,7 @@ class Admin::DepartmentsController < AdminController
     if @department.update(department_params)
       render partial: @department
     else
-      render json: @department.errors, status: :unprocessable_entity
+      render json: @department.errors.full_messages, status: :unprocessable_entity
     end
   end
 

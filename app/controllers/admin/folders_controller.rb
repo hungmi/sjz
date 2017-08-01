@@ -9,7 +9,7 @@ class Admin::FoldersController < AdminController
     if @folder.save
       render partial: @folder
     else
-      render json: @folder.errors, status: :unprocessable_entity
+      render json: @folder.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::FoldersController < AdminController
     if @folder.update(folder_params)
       render partial: @folder
     else
-      render json: @folder.errors, status: :unprocessable_entity
+      render json: @folder.errors.full_messages, status: :unprocessable_entity
     end
   end
 

@@ -1,7 +1,7 @@
 class Folder < ApplicationRecord
 	has_many :docs, dependent: :destroy
 	belongs_to :parent, class_name: "Folder", required: false
-	has_many :children, class_name: "Folder", foreign_key: "parent_id"
+	has_many :children, class_name: "Folder", foreign_key: "parent_id", dependent: :destroy
 
 	validates :name, presence: true
 
