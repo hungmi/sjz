@@ -1,3 +1,9 @@
-<h1 class="page-header">財產總覽</h1>
-<h3 class="mb-2">歸屬部門：<%= @department.name %></h3>
-<%= render partial: "items/item", collection: @department_items, as: :item %>
+<h1 class="page-header">
+  <%= t "admin.items.index.header" %>
+  <%= link_to admin_items_path, class: "btn btn-link btn-xs-sm" do %>
+  	<i class="fa fa-reply"></i>
+  	<%= t "back" %>
+  <% end %>
+</h1>
+<h3 class="mb-2"><%= @department.name %></h3>
+<%= render partial: "admin/items/item", collection: @department_items, as: :item %>

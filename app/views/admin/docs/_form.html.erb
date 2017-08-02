@@ -2,6 +2,8 @@
   <% family_ids = @doc.family_ids %>
 <% elsif params[:parent_id].present? %>
   <% family_ids = Doc.find(params[:parent_id]).family_ids %>
+<% elsif @doc.parent.present? %>
+  <% family_ids = @doc.parent.family_ids %>
 <% end %>
 
 <% if family_ids.present? %>
@@ -40,6 +42,11 @@
         <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">
           <%= file_field_tag :file, class: "form-control-file", disabled: (@doc.persisted?) %>
+        </div>
+        <div class="col-xs-12">
+          <p class="help-block">
+            由于网速限制，上传超过 50M 的档案会较缓慢，请保持网路稳定。
+          </p>
         </div>
       </div>
     <% end %>

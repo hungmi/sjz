@@ -27,6 +27,6 @@ module ApplicationHelper
   end
 
   def count_row(text)
-    text.nil? ? 4 : (text.length / 14.0) + 2
+    text.blank? ? 4 : (text.length / 14.0) + 2
   end
 end

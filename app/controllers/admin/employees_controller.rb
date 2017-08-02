@@ -16,6 +16,7 @@ class Admin::EmployeesController < AdminController
   end
 
   def create
+    @departments = Department.all
     @employee = Employee.new(employee_params)
     if @employee.save
       flash[:success] = "建立成功"
