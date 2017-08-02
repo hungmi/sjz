@@ -9,4 +9,5 @@
 //= require admin/app_init
 //= require admin/doc
 //= require admin/helper
+//= require pdf
 //= require turbolinks

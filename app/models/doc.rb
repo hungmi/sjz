@@ -88,11 +88,23 @@ class Doc < ApplicationRecord
 	end
 
 	def office?
-		self.name[/\.xls|\.xlsx|\.doc|\.docx|\.ppt|\.pptx$/i]
+		self.oss_key[/\.xls|\.xlsx|\.doc|\.docx|\.ppt|\.pptx$/i]
+	end
+
+	def pdf?
+		self.oss_key[/\.pdf$/i]
+	end
+
+	def image?
+		self.oss_key[/\.jpg|\.jpeg|\.gif|\.png|\.svg$/i]
 	end
 
 	def preview_url
-		self.office? ? self.office_online_url : self.download_url
+		if self.office?
+			self.office_online_url
+		else
+			self.download_url
+		end
 	end
 
 	def download_url timeout = nil # 預設永久有效，方便製作下載紙本連結

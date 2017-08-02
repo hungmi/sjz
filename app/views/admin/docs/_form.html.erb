@@ -13,7 +13,7 @@
       <thead>
         <th>名称</th>
         <th style="min-width: 60px;">版本号</th>
-        <th>上传时间</th>
+        <th style="min-width: 120px;">上传时间</th>
       </thead>
       <tbody class="docs">
         <% Doc.where(id: family_ids).order(id: :asc).each_with_index do |doc, index| %>
@@ -35,59 +35,57 @@
 
 <%= form_for([:admin, @doc], html: { class: "col-xs-12 col-md-7 col-lg-6", multipart: true }) do |f| %>
   <%= form_errors(@doc) %>
-  <div class="row">
-    <%= f.text_field :parent_id, value: params[:parent_id] || @doc.parent_id, type: :hidden %>
-    <% if @doc.new_record? %>
-      <div class="form-group row">
-        <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
-        <div class="col-xs-8">
-          <%= file_field_tag :file, class: "form-control-file", disabled: (@doc.persisted?) %>
-        </div>
-        <div class="col-xs-12">
-          <p class="help-block">
-            由于网速限制，上传超过 50M 的档案会较缓慢，请保持网路稳定。
-          </p>
-        </div>
-      </div>
-    <% end %>
-    <% if @doc.persisted? %>
-      <div class="form-group row">
-        <%= f.label :name, class: "col-xs-4 col-form-label" %>
-        <div class="col-xs-8">
-          <%= f.text_field :name ,class: "form-control" %>
-        </div>
-      </div>
-    <% end %>
+  <%= f.text_field :parent_id, value: params[:parent_id] || @doc.parent_id, type: :hidden %>
+  <% if @doc.new_record? %>
     <div class="form-group row">
-      <%= f.label :folder, class: "col-xs-4 col-form-label" %>
+      <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
       <div class="col-xs-8">
-        <%= f.select :folder_id, Folder.all.pluck(:name, :id), { selected: params[:folder_id] || @doc.folder_id, include_blank: "最上层根目录" }, class: "form-control select2" %>
-      </div>
-    </div>
-    <div class="form-group row">
-      <%= f.label :code, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-8">
-        <%= f.text_field :code, class: "form-control", disabled: (@doc.errors[:code].blank? && @doc.code.present?) %>
+        <%= file_field_tag :file, class: "form-control-file", disabled: (@doc.persisted?) %>
       </div>
       <div class="col-xs-12">
         <p class="help-block">
-          <%= t(".replace_hint") %><br>
-          <%= t(".code_hint") %>
+          由于网速限制，上传超过 50M 的档案会较缓慢，请保持网路稳定。
         </p>
       </div>
     </div>
+  <% end %>
+  <% if @doc.persisted? %>
     <div class="form-group row">
-      <%= f.label :description, class: "col-xs-4 col-form-label" %>
+      <%= f.label :name, class: "col-xs-4 col-form-label" %>
       <div class="col-xs-8">
-        <%= f.text_area :description, rows: count_row(f.object.description), class: "form-control" %>
+        <%= f.text_field :name ,class: "form-control" %>
       </div>
     </div>
-    <div class="form-group row">
-      <%= f.label :note, class: "col-xs-4 col-form-label" %>
-      <div class="col-xs-8">
-        <%= f.text_area :note, rows: count_row(f.object.note), class: "form-control" %>
-      </div>
+  <% end %>
+  <div class="form-group row">
+    <%= f.label :folder, class: "col-xs-4 col-form-label" %>
+    <div class="col-xs-8">
+      <%= f.select :folder_id, Folder.all.pluck(:name, :id), { selected: params[:folder_id] || @doc.folder_id, include_blank: "最上层根目录" }, class: "form-control select2" %>
     </div>
-    <%= f.submit class: "btn btn-primary btn-block" %>
   </div>
+  <div class="form-group row">
+    <%= f.label :code, class: "col-xs-4 col-form-label" %>
+    <div class="col-xs-8">
+      <%= f.text_field :code, class: "form-control", disabled: (@doc.errors[:code].blank? && @doc.code.present?) %>
+    </div>
+    <div class="col-xs-12">
+      <p class="help-block">
+        <%= t(".replace_hint") %><br>
+        <%= t(".code_hint") %>
+      </p>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :description, class: "col-xs-4 col-form-label" %>
+    <div class="col-xs-8">
+      <%= f.text_area :description, rows: count_row(f.object.description), class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :note, class: "col-xs-4 col-form-label" %>
+    <div class="col-xs-8">
+      <%= f.text_area :note, rows: count_row(f.object.note), class: "form-control" %>
+    </div>
+  </div>
+  <%= f.submit class: "btn btn-primary btn-block" %>
 <% end %>

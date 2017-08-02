@@ -18,9 +18,9 @@ class OssService
 		if @bucket.object_exists?(key)
 			if share_timeout.present?
 				share_timeout = (share_timeout.to_i < 86400 ? share_timeout : 86400) 
-				@bucket.object_url(key, share_timeout)
+				@bucket.object_url(key, share_timeout).gsub("http://doc-center2.oss-cn-shenzhen.aliyuncs.com", "http://oss.e-chen.com.cn")
 			else
-				@bucket.object_url(key)
+				@bucket.object_url(key).gsub("http://doc-center2.oss-cn-shenzhen.aliyuncs.com", "http://oss.e-chen.com.cn")
 			end
 		end
 	end

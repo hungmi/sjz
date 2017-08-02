@@ -12,3 +12,12 @@ tbody.docs, tbody.folders {
 		}
 	}
 }
+
+#pdf-btns {
+	text-align: right;
+	&.fixed {
+		position: fixed;
+		right: 45px;
+		top: 60px;
+	}
+}
