@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         get "download", action: :download, as: :download
         get "preview", action: :preview, as: :preview
         get "share", action: :share, as: :share
+        get "replace"
       end
     end
     resources :items, except: [:show] do

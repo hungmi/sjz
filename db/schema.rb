@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722084538) do
+ActiveRecord::Schema.define(version: 20170801081712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,13 @@ ActiveRecord::Schema.define(version: 20170722084538) do
     t.datetime "updated_at", null: false
     t.string "oss_key"
     t.bigint "folder_id"
+    t.bigint "parent_id"
+    t.bigint "child_id"
+    t.index ["child_id"], name: "index_docs_on_child_id"
     t.index ["code"], name: "index_docs_on_code", unique: true
     t.index ["folder_id"], name: "index_docs_on_folder_id"
     t.index ["oss_key"], name: "index_docs_on_oss_key", unique: true
+    t.index ["parent_id"], name: "index_docs_on_parent_id"
   end
 
   create_table "employees", id: :serial, force: :cascade do |t|

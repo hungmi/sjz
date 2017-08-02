@@ -11,8 +11,10 @@ zh-CN:
     docs:
       download: 下载选中的文档
       preview: 预览选中的文档
+      download_on_edit: 下载此文档
+      preview_on_edit: 预览此文档
       share: 生成分享链结
-      edit: 编辑名称
+      edit: 编辑及查看其他版本
       destroy: 删除选中的文档
     folders:
       new: 文件夹可协助分类

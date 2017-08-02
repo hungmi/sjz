@@ -1,7 +1,10 @@
-<tr class="doc" data-doc-id="<%= doc.id %>" data-doc-name="<%= doc.name %>" data-folder-id="<%= doc.folder_id %>">
+<tr class="doc <%= 'selected_by_param' if doc.id.to_s == params[:doc_id] %>" data-doc-id="<%= doc.id %>" data-doc-name="<%= doc.name %>" data-folder-id="<%= doc.folder_id %>">
 	<td style="min-width: 120px;"><%= doc.name %></td>
 	<td style="min-width: 120px;"><%= doc.updated_at.strftime("%F %T") %></td>
 	<td>
+		<% if doc.ancestors.present? %>
+			共有 <%= doc.ancestors.size + 1 %> 個版本
+		<% end %>
 		<% if doc.description.present? %>
 			<%= simple_format "描述：#{doc.description}" %><br>
 		<% end %>

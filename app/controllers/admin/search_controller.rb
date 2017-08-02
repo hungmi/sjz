@@ -1,6 +1,6 @@
 class Admin::SearchController < AdminController
   def index
-    @docs = Doc.ransack({
+    @docs = Doc.where(child: nil).ransack({
     	name_cont: params[:q]
     }).result(distinct: true)
 

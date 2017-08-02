@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <h1 class="page-header">
+      <%= link_to t("admin.#{controller_name}.index.header"), admin_docs_path, style: "text-decoration: none;" %>
+      <br class="visible-xs-inline">
+      <%= new_breadcrumb @folder, link_to_active: true %>
+    </h1>
+  </div>
+</div>
+
+<div class="mx-auto">
+  <%= render "form", doc: @doc %>
+</div>

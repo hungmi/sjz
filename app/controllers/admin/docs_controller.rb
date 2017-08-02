@@ -1,6 +1,6 @@
 class Admin::DocsController < AdminController
   before_action :find_doc, only: [:share, :preview, :download, :show, :edit, :update, :destroy]
-  before_action :find_folder, only: [:new, :create, :edit, :update]
+  before_action :find_folder, only: [:new, :create, :edit, :update, :replace]
 
   def share
     url = @doc.download_url params[:share_timeout]
@@ -37,10 +37,10 @@ class Admin::DocsController < AdminController
     if params[:folder_id].present?
       @folder = Folder.find(params[:folder_id])
       @folders = @folder.children
-      @docs = @folder.docs.order(id: :asc, name: :asc).ransack(params[:q]).result
+      @docs = @folder.docs.where(child: nil).order(id: :asc, name: :asc).ransack(params[:q]).result
     else
       @folders = Folder.where(parent_id: nil)
-      @docs = Doc.where(folder_id: nil).order(id: :asc, name: :asc).ransack(params[:q]).result
+      @docs = Doc.where(folder_id: nil).where(child: nil).order(id: :asc, name: :asc).ransack(params[:q]).result
     end
   end
 
@@ -100,6 +100,6 @@ class Admin::DocsController < AdminController
     end
 
     def doc_params
-      params.require(:doc).permit(:name, :folder_id, :code, :description, :note, :iso, :oss_key)
+      params.require(:doc).permit(:name, :folder_id, :code, :description, :note, :iso, :oss_key, :parent_id, :child_id)
     end
 end

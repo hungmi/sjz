@@ -1,54 +1,86 @@
-<%= form_for([:admin, @folder, @doc], html: { class: "col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8", multipart: true }) do |f| %>
+<% if @doc.persisted? %>
+  <% family_ids = @doc.family_ids %>
+<% elsif params[:parent_id].present? %>
+  <% family_ids = Doc.find(params[:parent_id]).family_ids %>
+<% end %>
+
+<% if family_ids.present? %>
+  <div class="col-md-5 col-lg-6 table-responsive">
+    <h4>其他版本 (<%= family_ids.size %>)</h4>
+    <table class="table">
+      <thead>
+        <th>名称</th>
+        <th style="min-width: 60px;">版本号</th>
+        <th>上传时间</th>
+      </thead>
+      <tbody class="docs">
+        <% Doc.where(id: family_ids).order(id: :asc).each_with_index do |doc, index| %>
+          <tr class="doc <%= 'selected' if doc.id == params[:id].to_i %>" data-doc-id="<%= doc.id %>" data-doc-name="<%= doc.name %>" data-folder-id="<%= doc.folder_id %>">
+            <td>
+              <%= link_to doc.name, edit_admin_doc_path(doc) %>
+              <% if index + 1 == family_ids.size %>
+                <span class="label label-success">New</span>
+              <% end %>
+            </td>
+            <td><%= doc.code %></td>
+            <td><%= doc.updated_at.strftime("%F %H:%M") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<%= form_for([:admin, @doc], html: { class: "col-xs-12 col-md-7 col-lg-6", multipart: true }) do |f| %>
   <%= form_errors(@doc) %>
   <div class="row">
-    <div class="col-md-offset-2 col-md-8">
-      <% if @doc.new_record? %>
-      	<div class="form-group row">
-          <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
-          <div class="col-xs-8">
-            <%= file_field_tag :file, class: "form-control-file", disabled: (@doc.persisted?) %>
-          </div>
-        </div>
-      <% end %>
-      <% if @doc.persisted? %>
-        <div class="form-group row">
-          <%= f.label :name, class: "col-xs-4 col-form-label" %>
-          <div class="col-xs-8">
-            <%= f.text_field :name ,class: "form-control" %>
-          </div>
-        </div>
-      <% end %>
+    <%= f.text_field :parent_id, value: params[:parent_id] || @doc.parent_id, type: :hidden %>
+    <% if @doc.new_record? %>
       <div class="form-group row">
-        <%= f.label :folder, class: "col-xs-4 col-form-label" %>
+        <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">
-          <%= f.select :folder_id, Folder.all.pluck(:name, :id), { selected: params[:folder_id] || @doc.folder_id, include_blank: "最上层根目录" }, class: "form-control select2" %>
+          <%= file_field_tag :file, class: "form-control-file", disabled: (@doc.persisted?) %>
         </div>
       </div>
+    <% end %>
+    <% if @doc.persisted? %>
       <div class="form-group row">
-        <%= f.label :code, class: "col-xs-4 col-form-label" %>
+        <%= f.label :name, class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">
-          <%= f.text_field :code, class: "form-control", disabled: (@doc.errors[:code].blank? && @doc.code.present?) %>
-        </div>
-        <div class="col-xs-12">
-      		<p class="help-block">
-            <%= t(".replace_hint") %><br>
-      		  <%= t(".code_hint") %>
-          </p>
+          <%= f.text_field :name ,class: "form-control" %>
         </div>
       </div>
-      <div class="form-group row">
-        <%= f.label :description, class: "col-xs-4 col-form-label" %>
-        <div class="col-xs-8">
-          <%= f.text_area :description, rows: count_row(f.object.description), class: "form-control" %>
-        </div>
+    <% end %>
+    <div class="form-group row">
+      <%= f.label :folder, class: "col-xs-4 col-form-label" %>
+      <div class="col-xs-8">
+        <%= f.select :folder_id, Folder.all.pluck(:name, :id), { selected: params[:folder_id] || @doc.folder_id, include_blank: "最上层根目录" }, class: "form-control select2" %>
       </div>
-      <div class="form-group row">
-        <%= f.label :note, class: "col-xs-4 col-form-label" %>
-        <div class="col-xs-8">
-          <%= f.text_area :note, rows: count_row(f.object.note), class: "form-control" %>
-        </div>
-      </div>
-      <%= f.submit class: "btn btn-primary btn-block" %>
     </div>
+    <div class="form-group row">
+      <%= f.label :code, class: "col-xs-4 col-form-label" %>
+      <div class="col-xs-8">
+        <%= f.text_field :code, class: "form-control", disabled: (@doc.errors[:code].blank? && @doc.code.present?) %>
+      </div>
+      <div class="col-xs-12">
+        <p class="help-block">
+          <%= t(".replace_hint") %><br>
+          <%= t(".code_hint") %>
+        </p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :description, class: "col-xs-4 col-form-label" %>
+      <div class="col-xs-8">
+        <%= f.text_area :description, rows: count_row(f.object.description), class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :note, class: "col-xs-4 col-form-label" %>
+      <div class="col-xs-8">
+        <%= f.text_area :note, rows: count_row(f.object.note), class: "form-control" %>
+      </div>
+    </div>
+    <%= f.submit class: "btn btn-primary btn-block" %>
   </div>
 <% end %>

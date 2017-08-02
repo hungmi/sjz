@@ -6,9 +6,26 @@
       <%= new_breadcrumb @folder, link_to_active: true %>
     </h1>
   </div>
+  <div class="col-sm-6 mt-6 text-right">
+  	<%= link_to download_admin_doc_path(@doc), class: "btn btn-sm btn-download mx-1 tooltipable", data: { action_name: "download", placement: "bottom" }, title: t("tooltips.docs.download_on_edit") do %>
+		  <i class="fa fa-download"></i>
+		<% end %>
+		<%= link_to preview_admin_doc_path(@doc), class: "btn btn-sm btn-preview mx-1 tooltipable", data: { action_name: "preview", placement: "bottom" }, title: t("tooltips.docs.preview_on_edit") do %>
+		  <i class="fa fa-eye"></i>
+		<% end %>
+		<%= link_to share_admin_doc_path(@doc), class: "btn btn-sm btn-share mx-1 mr-2 tooltipable", data: { toggle: "modal", target: "#docShareUrl", placement: "bottom" }, title: t("tooltips.docs.share") do %>
+		  <i class="fa fa-share"></i>
+		<% end %>
+    <% if @doc.persisted? && @doc.child_id.blank? %>
+      <%= link_to new_admin_doc_path(parent_id: @doc.id, folder_id: params[:folder_id]), class: "btn btn-warning" do %>
+      	<i class="fa fa-upload"></i>
+      	上傳新版本
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
-<div class="mx-auto">
+<div class="row mx-auto">
   <%= render "form", doc: @doc %>
 </div>
 
@@ -17,3 +34,10 @@
 		<iframe width="100%" height="800" frameborder="0" scrolling="no" src="<%= @doc.office_embed_url %>&wdDownloadButton=True"></iframe>
 	</div>
 <% end %>
+
+<%= render "doc_share_modal" %>
+<script type="text/javascript">
+	$(document).on("turbolinks:load", function() {
+		window.doc_action_url = "/admin/docs/" + "<%= @doc.id %>" + "/action_name?name=" + "<%= @doc.name %>"
+	})
+</script>

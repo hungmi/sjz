@@ -1,10 +1,10 @@
-.docs.index table {
+tbody.docs {
 	tr {
 		cursor: pointer;
 		&:hover {
 			background: #F3F9FF;
 		}
-		&:active, &.selected {
+		&:active, &.selected, &.selected_by_param {
 			background: #D9ECFF;
 		}
 		td {
