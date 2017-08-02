@@ -19,7 +19,7 @@
 		}
 	})
 
-	var url = "<%= asset_url '1.pdf' %>"
+	var url = "<%= doc.download_url(60) %>"
 	PDFJS.workerSrc = "<%= asset_path 'pdf.worker.js' %>";
 
 	var pdfDoc = null,
