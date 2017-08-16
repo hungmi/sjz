@@ -1,3 +1,4 @@
+<%= no_cache %>
 <div class="row">
   <div class="col-xs-12 col-sm-6">
     <h1 class="page-header">
@@ -32,40 +33,8 @@
   <% end %>
 </div>
 
-<%= render "admin/common/new_modal", modal_id: "newFolder", title: I18n.t("admin.folders.new.header"), submit_btn: "建立" do %>
-  <% render "admin/folders/form", folder: Folder.new %>
-<% end %>
-<script type="text/javascript" data-turbolinks-eval="false">
-  $(document).on("newFolderSuccess", function(xhr, data) {
-    $("tbody.folders").append(data)
-    $("table.hidden").removeClass("hidden")
-    $("div.nothing-tip").remove()
-  })
-</script>
+<%= render "admin/common/new_modal", modal_id: "newFolder", title: I18n.t("admin.folders.new.header"), submit_btn: "建立" %>
 
 <%= render "admin/common/new_modal", modal_id: "editFolder", title: I18n.t("admin.folders.edit.header"), submit_btn: "儲存" %>
-<script type="text/javascript" data-turbolinks-eval="false">
-  $(document).on("editFolderSuccess", function(xhr, data) {
-    $("tr.folder.selected").replaceWith(data)
-  })
-</script>
-
-<!-- 以下為刪除文件夾的回調 -->
-<script type="text/javascript" data-turbolinks-eval="false">
-  $(document).on("ajax:success", function(e) {
-    if (e.target.id == "destroyFolderBtn") {
-      $("tr.folder.selected").remove()
-      $(".btn-toggle-folder").addClass("hidden")
-    }
-  })
-  $(document).on("ajax:error", function(e) {
-    window.aa = e
-    if (e.target.id == "destroyFolderBtn") {
-      $("tr.folder.selected").remove()
-    }
-  })
-</script>
-
-<%= render "admin/common/new_modal", modal_id: "editDoc", title: I18n.t("admin.docs.edit.header"), submit_btn: "儲存" %>
 
 <%= render "doc_share_modal" %>

@@ -12,4 +12,5 @@ document.addEventListener("turbolinks:load", function(){
 	  language: "zh-CN"
 	});
 	$(".tooltipable").tooltip()
+	$('.tooltipable').tooltip('hide')
 })

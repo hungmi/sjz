@@ -8,6 +8,9 @@
 //= require admin/nav
 //= require admin/app_init
 //= require admin/doc
+//= require admin/folder
 //= require admin/helper
+//= require admin/new_folder_modal
+//= require admin/edit_folder_modal
 //= require pdf
 //= require turbolinks
