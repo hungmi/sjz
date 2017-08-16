@@ -42,7 +42,7 @@ zh-CN:
     pages:
       dashboard:
         header: 欢迎使用三角洲集团内部系统
-    export_csv: 导出 CSV
+    export_csv: 导出
     file: 档案
     finance:
       tickets:
