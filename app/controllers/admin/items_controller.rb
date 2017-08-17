@@ -11,7 +11,6 @@ class Admin::ItemsController < AdminController
 
   def new
     @item = Item.new
-    @departments = Department.all
   end
 
   def create
@@ -34,7 +33,6 @@ class Admin::ItemsController < AdminController
   end
 
   def edit
-    @departments = Department.all
   end
 
   def update

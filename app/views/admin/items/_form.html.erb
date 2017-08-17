@@ -20,8 +20,8 @@
       <div class="form-group row">
         <%= f.label :department_id, class: "col-xs-4 col-form-label" %>
         <div class="col-xs-8">
-          <% if @departments.present? %>
-            <%= f.collection_select :department_id, @departments, :id, :name, {}, class: "form-control select2" %>
+          <% if Department.all.size > 0 %>
+            <%= f.collection_select :department_id, Department.all, :id, :name, {}, class: "form-control select2" %>
           <% else %>
             <div style="padding: 9px 3px;">
               尚未建立任何部門
