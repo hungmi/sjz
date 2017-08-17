@@ -5,7 +5,6 @@
 <% elsif @doc.parent.present? %>
   <% family_ids = @doc.parent.family_ids %>
 <% end %>
-
 <% if family_ids.present? %>
   <div class="col-md-5 col-lg-6 table-responsive">
     <h4>其他版本 (<%= family_ids.size %>)</h4>
@@ -40,17 +39,25 @@
     <div class="form-group row">
       <%= label_tag :file, t("admin.file"), class: "col-xs-4 col-form-label" %>
       <div class="col-xs-8">
-        <%= file_field_tag :file, class: "form-control-file", disabled: (@doc.persisted?) %>
+        <%= file_field_tag :file, class: "form-control-file image_previewable", disabled: (@doc.persisted?) %>
       </div>
       <div class="col-xs-12">
         <p class="help-block">
           由于网速限制，上传超过 50M 的档案会较缓慢，请保持网路稳定。
         </p>
       </div>
+      <div class="col-xs-12">
+        <img id="image_preview_target" class="img-responsive"/>
+      </div>
     </div>
   <% end %>
   <% if @doc.persisted? %>
     <div class="form-group row">
+      <div class="col-xs-12">
+        <%= render("image_previewer", doc: @doc) if @doc.image? %>
+        <%= render("office_previewer", doc: @doc) if @doc.office? %>
+        <%#= render("pdf_previewer", doc: @doc) if @doc.pdf? %>
+      </div>
       <%= f.label :name, class: "col-xs-4 col-form-label" %>
       <div class="col-xs-8">
         <%= f.text_field :name ,class: "form-control" %>

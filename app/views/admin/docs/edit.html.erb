@@ -12,12 +12,6 @@
 </div>
 
 <div class="row">
-	<%= render("image_previewer", doc: @doc) if @doc.image? %>
-	<%= render("office_previewer", doc: @doc) if @doc.office? %>
-	<%= render("pdf_previewer", doc: @doc) if @doc.pdf? %>
-</div>
-
-<div class="row">
   <%= render "form", doc: @doc %>
 </div>
 
