@@ -48,7 +48,7 @@ zh-CN:
       tickets:
         uploading:
           header: 送货单转换
-          upload_xml: 上传发票 xml 档
+          upload_xml: 上传发票 xls, csv 档, 不支持 xlsx
           help_xml: 如何取得发票 xml 档？
           convert_and_download: 转换并下载
     folders:
